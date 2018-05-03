@@ -6,8 +6,6 @@
 #' @param Time vector of times between points
 
 #' @return A vector of speeds (km/h) between adjacent points in an animal track
-#' @examples
-#' Speed(Dist=tracks$Dist2Point,Time=tracks$InterPointTime)
 #' @export
 #############################################################################################
 # Calculate instantaious speed with a distance and a duration (set up for input meters and seconds and out put km and hours)

@@ -8,26 +8,34 @@
 #' @param right The right side of the bounding box of data
 #' @param top The top side of the bounding box of data
 #' @param bottom The bottom side of the bounding box of data
+#' @param resolution arc minutes res
+#' @param keep save a file
 #' @return A vector of elevation/depth in meters from ETOPO1 world bathymatry at a resolution of 1 arc minute
-#' @examples
-#' DepthETOPO(tracks=tracks,dataLat="Latitude", dataLon="Longitude",left=-179,right= -164,top=60,bottom=50)
 #' @export
 
 
-# Etopo1 is at 1 arc minute resolution.  It would be nice to find something higher resolution
-# load track data
-# tracks<-readRDS(data,file = "processedDATA/GPSrlki_raw.rda")
+# Etopo1 is at 1 arc minute resolution.  It would be nice to find something
+# higher resolution load track data tracks<-readRDS(data,
+# file = "processedDATA/GPSrlki_raw.rda")
 
-DepthETOPO<-function(tracks=tracks,dataLat="Latitude", dataLon="Longitude",left=-179,right= -164,top=60,bottom=50){
+DepthETOPO<-function(tracks=tracks,
+                     dataLat="Latitude",
+                     dataLon="Longitude",
+                     left=-179,right= -164,top=60,bottom=50,resolution = 30, keep=F){
 
   # Get bathymetric data ETOPO2
-  dat <- getNOAA.bathy(lon1 = right ,lon2 = left ,lat1 = bottom,lat2 = top ,resolution = 1, keep=F)
+  dat <- marmap::getNOAA.bathy(lon1 = right ,lon2 = left ,
+                               lat1 = bottom,lat2 = top ,
+                               resolution = resolution, keep=keep)
 
-  SPData<-as.SpatialGridDataFrame(dat)
+  SPData<-marmap::as.SpatialGridDataFrame(dat)
 
-  depth<-extract.data(cbind(tracks[[dataLon]],tracks[[dataLat]]),asc.from.sp(SPData))
+  depth<-SDMTools::extract.data(cbind(tracks[[dataLon]],
+                                      tracks[[dataLat]]),
+                                SDMTools::asc.from.sp(SPData))
   return(depth)
 }
 
-# tracks$depth<-DepthETOPO(data=tracks,dataLat="Latitude", dataLon="Longitude",left=-179,right= -164,top=60,bottom=50)
+# tracks$depth<-DepthETOPO(data=tracks,dataLat="Latitude",
+# dataLon="Longitude",left=-179,right= -164,top=60,bottom=50)
 # head(as.data.frame(tracks),100)

@@ -8,12 +8,11 @@
 #' @param lon a quoted string indicating the column name for latitude values
 #' @return a vector of bearings from adjacent points
 #' @examples
-#' tracks$Bering<-BearingFromPoint( tracks=tracks,ID="File", lat="Latitude",lon="Longitude")
+#'  \dontrun{Bering<-BearingFromPoint(tracks,ID="File", lat="Latitude",lon="Longitude")}
 #' @export
+BearingFromPoint<-function(tracks,ID = "File" , lat = "Latitude", lon = "Longitude"){
 
-BearingFromPoint<-function(tracks=tracks,ID = "File" , lat = "Latitude", lon = "Longitude"){
-
-  # remove bad positions
+    # remove bad positions
   tracks<-as.data.frame(tracks)
 
   tracks<- tracks[ tracks[lon] > -180 & tracks[lon] < 180 & tracks[lat] > -90 & tracks[lat] < 90,]
@@ -27,7 +26,7 @@ BearingFromPoint<-function(tracks=tracks,ID = "File" , lat = "Latitude", lon = "
     BearingfromPoint<-c(round(
       geosphere::bearing(
         cbind(Data[[lon]],Data[[lat]]),
-        cbind(lead(Data[[lon]]), lead(Data[[lat]]))),
+        cbind(dplyr::lead(Data[[lon]]), dplyr::lead(Data[[lat]]))),
       digits=1))
     dataOut<-c(dataOut,BearingfromPoint)
   }

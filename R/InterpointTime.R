@@ -7,15 +7,14 @@
 #' @param DateTime quoted name of column in data that has DateTime values in the format YYYY-mm-dd HH:MM:SS
 
 #' @return A vector of times differnces in seconds between adjacent points in an animal track
-#' @examples
-#' InterpointTime(data,ID="File",DateTime="DateTime")
 #' @export
 #############################################################################################
 # Calculate time between points in a timeseries
 #############################################################################################
 
 InterpointTime<-function(tracks=tracks,ID="File", DateTime="DateTime"){
-  # Initialize a vector wehere the data will be dumped, for time differences.
+
+    # Initialize a vector wehere the data will be dumped, for time differences.
   dataOut<-NULL
   Birds<-unique(tracks[[ID]])
 
@@ -23,7 +22,7 @@ InterpointTime<-function(tracks=tracks,ID="File", DateTime="DateTime"){
   for(i in 1:length(Birds)) {
     Data<-tracks[tracks[[ID]]==Birds[i],]
     Data$PointDur<-NA
-    Data$PointDur<-difftime(time1 = lead(Data[[DateTime]]),
+    Data$PointDur<-difftime(time1 = dplyr::lead(Data[[DateTime]]),
                             time2 = Data[[DateTime]],
                             units = "sec")
 
@@ -41,7 +40,7 @@ InterpointTime<-function(tracks=tracks,ID="File", DateTime="DateTime"){
 
 tdiff<-function(birdytime){
 # Input is just the time vector from one bird
-	PointDur<-difftime(time1 = lead(birdytime),
+	PointDur<-difftime(time1 = dplyr::lead(birdytime),
 					   time2 = birdytime,
 					   units = "sec")
 	return(PointDur)

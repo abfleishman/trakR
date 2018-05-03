@@ -7,16 +7,13 @@
 #' @param DistCutOff Distance in km to use as a cut off radius around the colony to use to split the trips
 #' @param Dist2Colony quoted name of column in data that has the distance in km from each point to the colony
 #' @return A new data frame with all original data plus two new columns: TripNum (consecutive trip number 0 = at colony) and ColonyMovement (in/out colony movements)
-#' @examples
-#'
-#' MakeTrip(tracks,ID="File",DistCutOff=50,Dist2Colony="Dist2Colony")
 #' @export
 #'
 
-MakeTrip<-function(tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colony"){
+MakeTrip<-function(tracks=tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colony"){
+
   Birds<-unique(tracks[[ID]])
 
-  require("dplyr")
 
   dataOut<-NULL
   for(j in 1:length(Birds)){
@@ -28,10 +25,10 @@ MakeTrip<-function(tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colony"){
 
     # offset by one (drop first record)
     # Detect state change for "out" events else NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==0&lead(BirdSub$InColony)==1,"Out",NA)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==0&dplyr::lead(BirdSub$InColony)==1,"Out",NA)
 
     # Detect state change for "In" events else "out" or NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==1&lead(BirdSub$InColony)==0,"In",BirdSub$ColonyMovement)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==1&dplyr::lead(BirdSub$InColony)==0,"In",BirdSub$ColonyMovement)
 
     # Get indicies of out events
     Out<-grep("Out",x = BirdSub$ColonyMovement)
@@ -58,7 +55,7 @@ MakeTrip<-function(tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colony"){
     for(i in 1:length(Out)){
       BirdSub$TripNum[Out[i]:In[i]]<-i
     }
-    dataOut<-bind_rows(dataOut,BirdSub)
+    dataOut<-dplyr::bind_rows(dataOut,BirdSub)
   }
 
   # if not on a trip (within distance to colony threshold) than give a 0
