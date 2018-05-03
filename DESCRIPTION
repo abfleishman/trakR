@@ -1,11 +1,19 @@
 Package: trakR
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Basic Animal Tracking Data Analysis Tools
+Version: 0.0.1
+Author: Abram B. Fleishman <abram@conservationmetrics.com>
+Maintainer: Abram B. Fleishman <abram@conservationmetrics.com>
+Description: Basic functions for processing animal tracking data
+    Still needs to be filled in...
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+  dplyr (>= 0.7.4),
+  argosfilter (>= 0.63),
+  geosphere (>= 1.5-7),
+  marmap (>= 0.9.6),
+  sp (>= 1.2-7),
+  SDMTools (>= 1.1-221)
+RoxygenNote: 6.0.1
