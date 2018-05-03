@@ -1,4 +1,4 @@
-#' AddDist2Colony Calculate the Distance from Points to the Colony
+#' AddDist2Colony Calculate the Distance from Points to the Many Colonies
 #'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 
@@ -22,14 +22,13 @@ AddDist2Colony<-function(tracks=tracks,
 
   for(j in 1:length(Sites)){
 
-    CapSub<-CapSitesSel[CapSitesSel[SiteName]==Sites[j],]
-    dataSub<-tracks[tracks[SiteName]==Sites[j],]
-    distanceVector<-Dist2Colony(tracks = dataSub,
-                                dataLat=dataLat,
-                                dataLon=dataLon,
-                                ColonyLat = CapSub$Lat,
-                                ColonyLong = CapSub$Lon)
-    dataOut[tracks[SiteName]==Sites[j]]<- distanceVector
+    CapSub<-CapSitesSel[CapSitesSel[SiteName] == Sites[j],]
+    dataSub<-tracks[tracks[SiteName] == Sites[j],]
+    dataOut[tracks[SiteName]==Sites[j]] <- Dist2Colony(tracks = dataSub,
+                                                       dataLat=dataLat,
+                                                       dataLon=dataLon,
+                                                       ColonyLat = CapSub$Lat,
+                                                       ColonyLong = CapSub$Lon)
   }
   return(dataOut)
 }

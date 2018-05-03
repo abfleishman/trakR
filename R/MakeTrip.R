@@ -1,16 +1,21 @@
-#' Function to make a TripNum variable for Gypsy data that has been run through the GypsyLocRead function
-#' iThis is the File from the GypsyLocRead output
+#' MakeTrip Function to make a TripNum variable
+#'
 #'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 #' @param tracks data.frame of data that you want to parse into trips
-#' @param ID quoted name of column in data that is a unique key to individual bird_tag_deployment combos. This is the File from the GypsyLocRead output
+#' @param ID quoted name of column in data that is a unique key to individual
+#'     bird_tag_deployment combos. This is the File from the GypsyLocRead output
 #' @param DistCutOff Distance in km to use as a cut off radius around the colony to use to split the trips
 #' @param Dist2Colony quoted name of column in data that has the distance in km from each point to the colony
-#' @return A new data frame with all original data plus two new columns: TripNum (consecutive trip number 0 = at colony) and ColonyMovement (in/out colony movements)
+#' @return A new data frame with all original data plus two new columns:
+#'     TripNum (consecutive trip number 0 = at colony) and
+#'     ColonyMovement (in/out colony movements)
 #' @export
-#'
 
-MakeTrip<-function(tracks=tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colony"){
+MakeTrip<-function(tracks=tracks,
+                   ID="File",
+                   DistCutOff=10,
+                   Dist2Colony="Dist2Colony"){
 
   Birds<-unique(tracks[[ID]])
 
@@ -21,21 +26,21 @@ MakeTrip<-function(tracks=tracks,ID="File",DistCutOff=10,Dist2Colony="Dist2Colon
     BirdSub<-tracks[tracks[[ID]]==Birds[j],]
 
     # If distance to colony is less than DistCutOff m make it a 0 else make it a 1
-    BirdSub$InColony<-ifelse(BirdSub[[Dist2Colony]]<DistCutOff,0,1)
+    BirdSub$InColony<-ifelse(BirdSub[[Dist2Colony]] < DistCutOff,0,1)
 
     # offset by one (drop first record)
     # Detect state change for "out" events else NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==0&dplyr::lead(BirdSub$InColony)==1,"Out",NA)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony = =0&dplyr::lead(BirdSub$InColony) == 1, "Out", NA)
 
     # Detect state change for "In" events else "out" or NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony==1&dplyr::lead(BirdSub$InColony)==0,"In",BirdSub$ColonyMovement)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 1&dplyr::lead(BirdSub$InColony) == 0, "In", BirdSub$ColonyMovement)
 
     # Get indicies of out events
-    Out<-grep("Out",x = BirdSub$ColonyMovement)
+    Out<-grep("Out", x = BirdSub$ColonyMovement)
 
     # If there is an "in" event get the indicies of the in events
     if("In" %in% BirdSub$ColonyMovement){
-      In<-grep("In",x = BirdSub$ColonyMovement)
+      In<-grep("In", x = BirdSub$ColonyMovement)
       } else {
         In<-length(BirdSub$ColonyMovement)-1
       }

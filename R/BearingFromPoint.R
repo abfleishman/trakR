@@ -7,10 +7,11 @@
 #' @param lat a quoted string indicating the column name for longitude values
 #' @param lon a quoted string indicating the column name for latitude values
 #' @return a vector of bearings from adjacent points
-#' @examples
-#'  \dontrun{Bering<-BearingFromPoint(tracks,ID="File", lat="Latitude",lon="Longitude")}
 #' @export
-BearingFromPoint<-function(tracks,ID = "File" , lat = "Latitude", lon = "Longitude"){
+BearingFromPoint<-function(tracks,
+                           ID = "File",
+                           lat = "Latitude",
+                           lon = "Longitude"){
 
     # remove bad positions
   tracks<-as.data.frame(tracks)
