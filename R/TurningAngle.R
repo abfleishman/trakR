@@ -7,7 +7,7 @@
 
 #' @return A vector of turning angles (degrees) between adjacent points in an animal track
 #' @export
-TurningAngle<-function(tracks=tracks,ID="File", Bearing="PointBearing"){
+TurningAngle<-function(tracks,ID="File", Bearing="PointBearing"){
   dataOut<-NULL
   Birds<-unique(tracks[[ID]])
   for(i in 1:length(Birds)){

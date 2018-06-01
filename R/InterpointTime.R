@@ -12,7 +12,7 @@
 # Calculate time between points in a timeseries
 #############################################################################################
 
-InterpointTime<-function(tracks=tracks, ID="File", DateTime="DateTime"){
+InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
 
     # Initialize a vector wehere the data will be dumped, for time differences.
   dataOut <- NULL

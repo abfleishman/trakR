@@ -2,13 +2,13 @@
 % Please edit documentation in R/InterpointTime.R
 \name{InterpointTime}
 \alias{InterpointTime}
-\title{Calculate the time between points on a track for each bird
+\title{InterpointTime Calculate the time between points on a track for each bird
 Vector of times between points}
 \usage{
-InterpointTime(tracks = tracks, ID = "File", DateTime = "DateTime")
+InterpointTime(tracks, ID = "File", DateTime = "DateTime")
 }
 \arguments{
-\item{tracks}{data.frame of data to be queried for  latand long values}
+\item{tracks}{data.frame of data to be queried for lat and long values}
 
 \item{ID}{quoted name of column in data that is and ID field}
 
@@ -18,7 +18,7 @@ InterpointTime(tracks = tracks, ID = "File", DateTime = "DateTime")
 A vector of times differnces in seconds between adjacent points in an animal track
 }
 \description{
-Calculate the time between points on a track for each bird
+InterpointTime Calculate the time between points on a track for each bird
 Vector of times between points
 }
 \author{

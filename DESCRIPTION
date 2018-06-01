@@ -17,3 +17,4 @@ Imports:
   sp (>= 1.2-7),
   SDMTools (>= 1.1-221)
 RoxygenNote: 6.0.1
+Suggests: testthat

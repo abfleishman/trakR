@@ -2,22 +2,22 @@
 % Please edit documentation in R/Speed.R
 \name{Speed}
 \alias{Speed}
-\title{Calculate the instantanious speed at each point along on a track for each bird
-Vector of times between points}
+\title{Speed Calculate the instantanious speed at each point along on a track for
+each bird Vector of times between points}
 \usage{
-Speed(Dist = tracks$Dist2Point, Time = tracks$InterPointTime)
+Speed(Dist, Time)
 }
 \arguments{
-\item{Dist}{vector of distances between points}
+\item{Dist}{vector of distances between points (m)}
 
-\item{Time}{vector of times between points}
+\item{Time}{vector of times between points (Seconds)}
 }
 \value{
 A vector of speeds (km/h) between adjacent points in an animal track
 }
 \description{
-Calculate the instantanious speed at each point along on a track for each bird
-Vector of times between points
+Speed Calculate the instantanious speed at each point along on a track for
+each bird Vector of times between points
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>

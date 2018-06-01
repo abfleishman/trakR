@@ -8,6 +8,6 @@
 #' @return A vector of speeds (km/h) between adjacent points in an animal track
 #' @export
 
-Speed <- function(Dist = tracks$Dist2Point, Time = tracks$InterPointTime){
+Speed <- function(Dist , Time ){
   round( (as.numeric(Dist) / 1000) / (as.numeric(Time) / (60 * 60)), digits = 3)
 }

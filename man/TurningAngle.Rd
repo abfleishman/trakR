@@ -4,7 +4,7 @@
 \alias{TurningAngle}
 \title{Calculate the turning angles between points on a track for each bird}
 \usage{
-TurningAngle(tracks = tracks, ID = "File", Bearing = "PointBearing")
+TurningAngle(tracks, ID = "File", Bearing = "PointBearing")
 }
 \arguments{
 \item{tracks}{data.frame of data to be queried for  latand long values}

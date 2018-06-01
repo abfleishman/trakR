@@ -2,27 +2,28 @@
 % Please edit documentation in R/MakeTrip.R
 \name{MakeTrip}
 \alias{MakeTrip}
-\title{Function to make a TripNum variable for Gypsy data that has been run through the GypsyLocRead function
-iThis is the File from the GypsyLocRead output}
+\title{MakeTrip Function to make a TripNum variable}
 \usage{
-MakeTrip(tracks = tracks, ID = "File", DistCutOff = 10,
+MakeTrip(tracks, ID = "File", DistCutOff = 10,
   Dist2Colony = "Dist2Colony")
 }
 \arguments{
 \item{tracks}{data.frame of data that you want to parse into trips}
 
-\item{ID}{quoted name of column in data that is a unique key to individual bird_tag_deployment combos. This is the File from the GypsyLocRead output}
+\item{ID}{quoted name of column in data that is a unique key to individual
+bird_tag_deployment combos. This is the File from the GypsyLocRead output}
 
 \item{DistCutOff}{Distance in km to use as a cut off radius around the colony to use to split the trips}
 
 \item{Dist2Colony}{quoted name of column in data that has the distance in km from each point to the colony}
 }
 \value{
-A new data frame with all original data plus two new columns: TripNum (consecutive trip number 0 = at colony) and ColonyMovement (in/out colony movements)
+A new data frame with all original data plus two new columns:
+    TripNum (consecutive trip number 0 = at colony) and
+    ColonyMovement (in/out colony movements)
 }
 \description{
-Function to make a TripNum variable for Gypsy data that has been run through the GypsyLocRead function
-iThis is the File from the GypsyLocRead output
+MakeTrip Function to make a TripNum variable
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>

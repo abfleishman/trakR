@@ -11,10 +11,10 @@
 #' @return vector of distances from each colony
 #' @export
 
-AddDist2Colony<-function(tracks=tracks,
+AddDist2Colony<-function(tracks,
                          dataLat="lat",
                          dataLon="lon",
-                         CaptureSitesData=CapSitesSel,
+                         CaptureSitesData,
                          SiteName="SiteShort"){
 
   dataOut<-vector(mode = "numeric",length = nrow(tracks))
@@ -22,7 +22,7 @@ AddDist2Colony<-function(tracks=tracks,
 
   for(j in 1:length(Sites)){
 
-    CapSub<-CapSitesSel[CapSitesSel[SiteName] == Sites[j],]
+    CapSub<-CaptureSitesData[CaptureSitesData[SiteName] == Sites[j],]
     dataSub<-tracks[tracks[SiteName] == Sites[j],]
     dataOut[tracks[SiteName]==Sites[j]] <- Dist2Colony(tracks = dataSub,
                                                        dataLat=dataLat,

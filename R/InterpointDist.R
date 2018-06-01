@@ -10,7 +10,7 @@
 #' @return A vector of distances in meters between adjacent points in an animal track
 #' @export
 
-InterpointDist<-function(tracks=tracks,
+InterpointDist<-function(tracks,
                          ID="CaptureNum",
                          lat="Latitude",
                          lon="Longitude"){

@@ -1,6 +1,5 @@
 #' MakeTrip Function to make a TripNum variable
 #'
-#'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 #' @param tracks data.frame of data that you want to parse into trips
 #' @param ID quoted name of column in data that is a unique key to individual
@@ -12,7 +11,7 @@
 #'     ColonyMovement (in/out colony movements)
 #' @export
 
-MakeTrip<-function(tracks=tracks,
+MakeTrip<-function(tracks,
                    ID="File",
                    DistCutOff=10,
                    Dist2Colony="Dist2Colony"){
@@ -24,16 +23,16 @@ MakeTrip<-function(tracks=tracks,
   for(j in 1:length(Birds)){
     # Subset for each bird
     BirdSub<-tracks[tracks[[ID]]==Birds[j],]
-
+    BirdSub$InColony<-NULL
     # If distance to colony is less than DistCutOff m make it a 0 else make it a 1
     BirdSub$InColony<-ifelse(BirdSub[[Dist2Colony]] < DistCutOff,0,1)
 
     # offset by one (drop first record)
     # Detect state change for "out" events else NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony = =0&dplyr::lead(BirdSub$InColony) == 1, "Out", NA)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 0 & dplyr::lead(BirdSub$InColony) == 1, "Out", NA)
 
     # Detect state change for "In" events else "out" or NA
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 1&dplyr::lead(BirdSub$InColony) == 0, "In", BirdSub$ColonyMovement)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 1 & dplyr::lead(BirdSub$InColony) == 0, "In", BirdSub$ColonyMovement)
 
     # Get indicies of out events
     Out<-grep("Out", x = BirdSub$ColonyMovement)
@@ -66,5 +65,5 @@ MakeTrip<-function(tracks=tracks,
   # if not on a trip (within distance to colony threshold) than give a 0
   dataOut$TripNum[is.na(dataOut$TripNum)]<-0
 
-  return(dplyr::select(dataOut,-InColony))
+  return(dplyr::select_(dataOut,-"InColony"))
 }

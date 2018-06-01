@@ -21,9 +21,6 @@ a vector of bearings from adjacent points
 \description{
 BearingFromPoint Calculate bearing between two points in a vector
 }
-\examples{
- \dontrun{Bering<-BearingFromPoint(tracks,ID="File", lat="Latitude",lon="Longitude")}
-}
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 }

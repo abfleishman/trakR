@@ -18,7 +18,7 @@
 # higher resolution load track data tracks<-readRDS(data,
 # file = "processedDATA/GPSrlki_raw.rda")
 
-DepthETOPO<-function(tracks=tracks,
+DepthETOPO<-function(tracks,
                      dataLat="Latitude",
                      dataLon="Longitude",
                      left=-179,right= -164,top=60,bottom=50,resolution = 30, keep=F){
