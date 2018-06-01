@@ -9,9 +9,9 @@ Description: Basic functions for processing animal tracking data
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports:
-  dplyr (>= 0.7.4),
-  argosfilter (>= 0.63),
+Suggusts:
+  dplyr (>= 0.7),
+  argosfilter (>= 0.6),
   geosphere (>= 1.5-7),
   marmap (>= 0.9.6),
   sp (>= 1.2-7),
