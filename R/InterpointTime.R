@@ -1,4 +1,5 @@
 #' InterpointTime Calculate the time between points on a track for each bird
+#'
 #' Vector of times between points
 #'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>

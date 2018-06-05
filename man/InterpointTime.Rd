@@ -2,8 +2,7 @@
 % Please edit documentation in R/InterpointTime.R
 \name{InterpointTime}
 \alias{InterpointTime}
-\title{InterpointTime Calculate the time between points on a track for each bird
-Vector of times between points}
+\title{InterpointTime Calculate the time between points on a track for each bird}
 \usage{
 InterpointTime(tracks, ID = "File", DateTime = "DateTime")
 }
@@ -18,7 +17,6 @@ InterpointTime(tracks, ID = "File", DateTime = "DateTime")
 A vector of times differnces in seconds between adjacent points in an animal track
 }
 \description{
-InterpointTime Calculate the time between points on a track for each bird
 Vector of times between points
 }
 \author{

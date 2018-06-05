@@ -2,10 +2,10 @@
 % Please edit documentation in R/AddDist2Colony.R
 \name{AddDist2Colony}
 \alias{AddDist2Colony}
-\title{AddDist2Colony Calculate the Distance from Points to the Many Colonies}
+\title{AddDist2Colony Calculate the Distance from Points to Many Colonies}
 \usage{
 AddDist2Colony(tracks, dataLat = "lat", dataLon = "lon", CaptureSitesData,
-  SiteName = "SiteShort")
+  SiteName = "SiteShort", capLat = "lat", capLon = "lon")
 }
 \arguments{
 \item{tracks}{a data frame with with latitude and longitude and colony site names}
@@ -18,12 +18,16 @@ AddDist2Colony(tracks, dataLat = "lat", dataLon = "lon", CaptureSitesData,
 
 \item{SiteName}{a quoted string indicating what the column houses your SiteNames.
 Must be the same across both your data and the CaptureSitesData}
+
+\item{capLat}{quoted name of column in CaptureSitesData that has latitude values}
+
+\item{capLon}{quoted name of column in CaptureSitesData that has longitude values}
 }
 \value{
 vector of distances from each colony
 }
 \description{
-AddDist2Colony Calculate the Distance from Points to the Many Colonies
+AddDist2Colony takes tracks with lat/lon positions and and
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>

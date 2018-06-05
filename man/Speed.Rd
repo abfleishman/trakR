@@ -3,7 +3,7 @@
 \name{Speed}
 \alias{Speed}
 \title{Speed Calculate the instantanious speed at each point along on a track for
-each bird Vector of times between points}
+each bird}
 \usage{
 Speed(Dist, Time)
 }
@@ -17,7 +17,7 @@ A vector of speeds (km/h) between adjacent points in an animal track
 }
 \description{
 Speed Calculate the instantanious speed at each point along on a track for
-each bird Vector of times between points
+each bird
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>

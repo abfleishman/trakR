@@ -1,4 +1,4 @@
-#' BearingFromPoint Calculate bearing between two points in a vector
+#' BearingFromPoint Calculate bearing between two points along a vector
 #'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 

@@ -1,14 +1,28 @@
 #' MakeTrip Function to make a TripNum variable
 #'
+#' The objective of this function to to partition tracking data into "trips"
+#' based on begining and returning to a fixed location.  It was designed for use
+#' with GPS tracking data from seabirds that during the breeding season are
+#' central place foragers, leaving from colony sites on food finding trips and
+#' returning to the colony afterward.  This function relies on a column with a
+#' disntance in km from each point along the track to the colony and a distance
+#' cutoff.  It numbers each trip starting with the first point beyond the
+#' distance cutoff and ending with the last point beyond the cutoff with a
+#' sequential number starting with 1.  All points inside the cutoff are labled
+#' 0.  In the future it could be nice to have these labeled with sequetial
+#' numbers as well.
+#'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
 #' @param tracks data.frame of data that you want to parse into trips
 #' @param ID quoted name of column in data that is a unique key to individual
-#'     bird_tag_deployment combos. This is the File from the GypsyLocRead output
-#' @param DistCutOff Distance in km to use as a cut off radius around the colony to use to split the trips
-#' @param Dist2Colony quoted name of column in data that has the distance in km from each point to the colony
-#' @return A new data frame with all original data plus two new columns:
-#'     TripNum (consecutive trip number 0 = at colony) and
-#'     ColonyMovement (in/out colony movements)
+#'   bird_tag_deployment combos. This is the File from the GypsyLocRead output
+#' @param DistCutOff Distance in km to use as a cut off radius around the colony
+#'   to use to split the trips
+#' @param Dist2Colony quoted name of column in data that has the distance in km
+#'   from each point to the colony
+#' @return A new data frame with all original data plus two new columns: TripNum
+#'   (consecutive trip number 0 = at colony) and ColonyMovement (in/out colony
+#'   movements)
 #' @export
 
 MakeTrip<-function(tracks,

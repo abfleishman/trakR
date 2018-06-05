@@ -6,6 +6,10 @@ Author: Abram B. Fleishman <abram@conservationmetrics.com>
 Maintainer: Abram B. Fleishman <abram@conservationmetrics.com>
 Description: Basic functions for processing animal tracking data
     Still needs to be filled in...
+    I believe theis collection of functions will be usful for 
+    others an so I am sharing. It you have problems, please open an issue
+    on github.com/abfleishman/trakR 
+    Or better yet make a change and file a pull request!
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,5 +20,5 @@ Suggusts:
   marmap (>= 0.9.6),
   sp (>= 1.2-7),
   SDMTools (>= 1.1-221)
+  testthat
 RoxygenNote: 6.0.1
-Suggests: testthat

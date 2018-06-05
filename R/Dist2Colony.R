@@ -16,7 +16,7 @@ Dist2Colony<-function(tracks,dataLat="lat",
                       ColonyLong){
 
   Point2Colony<-vector(mode = "numeric",length = nrow(tracks))
-  for(i in 1:length(tracks$Latitude)){
+  for(i in 1:nrow(tracks)){
     # This is a function to calculate distance between two points from the
     # argosfilter package
     Point2Colony[i]<-argosfilter::distance(lat1 = ColonyLat,

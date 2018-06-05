@@ -2,7 +2,7 @@
 % Please edit documentation in R/BearingFromPoint.R
 \name{BearingFromPoint}
 \alias{BearingFromPoint}
-\title{BearingFromPoint Calculate bearing between two points in a vector}
+\title{BearingFromPoint Calculate bearing between two points along a vector}
 \usage{
 BearingFromPoint(tracks, ID = "File", lat = "Latitude", lon = "Longitude")
 }
@@ -19,7 +19,7 @@ BearingFromPoint(tracks, ID = "File", lat = "Latitude", lon = "Longitude")
 a vector of bearings from adjacent points
 }
 \description{
-BearingFromPoint Calculate bearing between two points in a vector
+BearingFromPoint Calculate bearing between two points along a vector
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>
