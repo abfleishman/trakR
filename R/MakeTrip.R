@@ -79,5 +79,5 @@ MakeTrip<-function(tracks,
   # if not on a trip (within distance to colony threshold) than give a 0
   dataOut$TripNum[is.na(dataOut$TripNum)]<-0
 
-  return(dplyr::select_(dataOut,-"InColony"))
+    return(dataOut[ , -which(names(dataOut) =="InColony")])
 }
