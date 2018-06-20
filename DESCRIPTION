@@ -1,7 +1,7 @@
 Package: trakR
 Type: Package
 Title: Basic Animal Tracking Data Analysis Tools
-Version: 0.0.1
+Version: 0.0.2
 Author: Abram B. Fleishman <abram@conservationmetrics.com>
 Maintainer: Abram B. Fleishman <abram@conservationmetrics.com>
 Description: Basic functions for processing animal tracking data
