@@ -33,7 +33,6 @@ MakeTrip<-function(tracks,
                    NumLocCut=3){
 
   Birds<-unique(tracks[[ID]])
-  pdf("plots.pdf")
 
   dataOut<-NULL
   for(j in 1:length(Birds)){
