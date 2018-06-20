@@ -1,0 +1,64 @@
+---
+title: "Basic Trip Segmentation"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Trip segmentation for animal tracking data
+
+
+```{r load packages}
+
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(dplyr)
+library(stringr)
+library(lubridate)
+library(argosfilter)
+```
+
+# Install trakR package (lots of issues but this trip segmentation works currently)
+```{r install trakR}
+# install.packages("devtools") # for installing packages from github
+# devtools::install_github("abfleishman/trakR") # install my package
+
+library(trakR)
+```
+
+# Load tracks 
+This should be one file for all the tracks or create a data.frame with all the tracks.
+The function `MakeTrip` is set up for processing multiple animals at once
+ 
+For this tutorial we will use a single bird in the included `tracks` dataset.
+```{r load data}
+data("tracks")
+
+head(tracks)
+```
+
+The `MakeTrip` function requiers a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run.
+
+```{r dist2col}
+library(argosfilter)
+tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, dataLat = "Latitude",dataLon = "Longitude",
+                             ColonyLat = 56.60329,ColonyLong = -169.6760)
+```
+
+# segment trips
+The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
+```{r make trips}
+
+tracks_w_trips<-trakR::MakeTrip(tracks = tracks,ID = "CaptureID",DistCutOff = 0.1,Dist2Colony = "Dist2Col", NumLocCut = 3)
+head(tracks_w_trips)
+
+# Plot a bird to check
+ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
+  geom_path(size=.7)+
+  geom_point(data=tracks_w_trips[tracks_w_trips$ColonyMovement%in%c("Out","In"),])+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
+
