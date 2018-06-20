@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Trip segmentation for animal tracking data
 
 
-```{r load packages}
+```{r load packages,echo=TRUE,results='hide',message=FALSE}
 
 library(ggplot2)
 library(maps)
@@ -44,15 +44,22 @@ The `MakeTrip` function requiers a column with distances to the colony for each 
 
 ```{r dist2col}
 library(argosfilter)
-tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, dataLat = "Latitude",dataLon = "Longitude",
-                             ColonyLat = 56.60329,ColonyLong = -169.6760)
+tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
+                                    dataLat = "Latitude",
+                                    dataLon = "Longitude",
+                                    ColonyLat = 56.60329,
+                                    ColonyLong = -169.6760)
 ```
 
 # segment trips
 The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
 ```{r make trips}
 
-tracks_w_trips<-trakR::MakeTrip(tracks = tracks,ID = "CaptureID",DistCutOff = 0.1,Dist2Colony = "Dist2Col", NumLocCut = 3)
+tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
+                                ID = "CaptureID",
+                                DistCutOff = 0.1,
+                                Dist2Colony = "Dist2Col",
+                                NumLocCut = 3)
 head(tracks_w_trips)
 
 # Plot a bird to check

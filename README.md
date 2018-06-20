@@ -9,32 +9,8 @@ library(ggplot2)
 library(maps)
 library(mapdata)
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(stringr)
 library(lubridate)
-```
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     date
-
-``` r
 library(argosfilter)
 ```
 
@@ -73,8 +49,11 @@ The `MakeTrip` function requiers a column with distances to the colony for each 
 
 ``` r
 library(argosfilter)
-tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, dataLat = "Latitude",dataLon = "Longitude",
-                             ColonyLat = 56.60329,ColonyLong = -169.6760)
+tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
+                                    dataLat = "Latitude",
+                                    dataLon = "Longitude",
+                                    ColonyLat = 56.60329,
+                                    ColonyLong = -169.6760)
 ```
 
 segment trips
@@ -83,7 +62,11 @@ segment trips
 The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.
 
 ``` r
-tracks_w_trips<-trakR::MakeTrip(tracks = tracks,ID = "CaptureID",DistCutOff = 0.1,Dist2Colony = "Dist2Col", NumLocCut = 3)
+tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
+                                ID = "CaptureID",
+                                DistCutOff = 0.1,
+                                Dist2Colony = "Dist2Col",
+                                NumLocCut = 3)
 head(tracks_w_trips)
 ```
 
