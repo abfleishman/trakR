@@ -94,7 +94,6 @@ MakeTrip<-function(tracks,
 
     dataOut<-dplyr::bind_rows(dataOut,BirdSub)
   }
-  dev.off()
 
   # if not on a trip (within distance to colony threshold) than give a 0
   dataOut$TripNum[is.na(dataOut$TripNum)]<-0
