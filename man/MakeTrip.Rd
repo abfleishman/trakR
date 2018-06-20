@@ -5,7 +5,7 @@
 \title{MakeTrip Function to make a TripNum variable}
 \usage{
 MakeTrip(tracks, ID = "File", DistCutOff = 10,
-  Dist2Colony = "Dist2Colony")
+  Dist2Colony = "Dist2Colony", NumLocCut = 3)
 }
 \arguments{
 \item{tracks}{data.frame of data that you want to parse into trips}
@@ -18,6 +18,8 @@ to use to split the trips}
 
 \item{Dist2Colony}{quoted name of column in data that has the distance in km
 from each point to the colony}
+
+\item{NumLocCut}{Minimum number of points to consider in a trip}
 }
 \value{
 A new data frame with all original data plus two new columns: TripNum
