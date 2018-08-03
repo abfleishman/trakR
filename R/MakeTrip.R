@@ -87,8 +87,13 @@ MakeTrip<-function(tracks,
     BirdSub$TripNum<-NA
 
     # add a tripnumber "i" to all the events between the ith out and ith in
-    for(i in 1:length(Out)){
-      BirdSub$TripNum[Out[i]:In[i]]<-i
+    if(length(In)==0){
+      warning(paste(ID,":", Birds[j], "did not make any trips. If this is an error, reduce DistCutOff or NumLocCut.\n",
+                    ID,":", Birds[j],"has fewer then NumLocCut=",NumLocCut,"points within DistCutOff=", DistCutOff,"."))
+    }else{
+      for(i in 1:length(Out)){
+        BirdSub$TripNum[Out[i]:In[i]]<-i
+      }
     }
 
     dataOut<-dplyr::bind_rows(dataOut,BirdSub)
