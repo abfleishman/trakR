@@ -40,7 +40,10 @@ MakeTrip<-function(tracks,
     # Subset for each bird
     BirdSub<-tracks[tracks[[ID]]==Birds[j],]
     BirdSub$InColony<-NULL
+
+    # Print bird number
     cat(ID,Birds[j],"\n")
+
     # If distance to colony is less than DistCutOff m make it a 0 else make it a 1
     # 0 =  in colony 1 = on trip
     BirdSub$InColony<-ifelse(BirdSub[[Dist2Colony]] < DistCutOff|is.na(BirdSub[[Dist2Colony]]),0,1)
@@ -68,7 +71,7 @@ MakeTrip<-function(tracks,
     }
 
     # if the first "in" comes after the first "out" than make first index an "out"
-    if(In[1]<Out[1])  Out<-c(1,Out)
+    if(In[1]<Out[1]|length(Out)==0)  Out<-c(1,Out)
 
     #  if the last out is a larger index than the last in make the last event an "in"
     if(Out[length(Out)]>In[length(In)]) In<-c(In,nrow(BirdSub)-1)
