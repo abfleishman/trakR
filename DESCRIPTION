@@ -22,4 +22,3 @@ Suggusts:
   SDMTools (>= 1.1-221)
   testthat
 RoxygenNote: 6.0.1
-LazyData: true
