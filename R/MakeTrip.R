@@ -42,7 +42,7 @@ MakeTrip<-function(tracks,
     BirdSub$InColony<-NULL
 
     # Print bird number
-    cat(ID,Birds[j],"\n")
+    print(paste(ID,Birds[j]))
 
     # If distance to colony is less than DistCutOff m make it a 0 else make it a 1
     # 0 =  in colony 1 = on trip
