@@ -4,7 +4,8 @@
 \alias{BearingFromPoint}
 \title{BearingFromPoint Calculate bearing between two points along a vector}
 \usage{
-BearingFromPoint(tracks, ID = "File", lat = "Latitude", lon = "Longitude")
+BearingFromPoint(tracks, ID = "File", lat = "Latitude",
+  lon = "Longitude")
 }
 \arguments{
 \item{tracks}{a dataframe}

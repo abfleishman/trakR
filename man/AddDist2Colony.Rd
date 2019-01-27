@@ -4,8 +4,9 @@
 \alias{AddDist2Colony}
 \title{AddDist2Colony Calculate the Distance from Points to Many Colonies}
 \usage{
-AddDist2Colony(tracks, dataLat = "lat", dataLon = "lon", CaptureSitesData,
-  SiteName = "SiteShort", capLat = "lat", capLon = "lon")
+AddDist2Colony(tracks, dataLat = "lat", dataLon = "lon",
+  CaptureSitesData, SiteName = "SiteShort", capLat = "lat",
+  capLon = "lon")
 }
 \arguments{
 \item{tracks}{a data frame with with latitude and longitude and colony site names}

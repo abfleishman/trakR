@@ -6,8 +6,8 @@
 It would be nice to find something higher resolution}
 \usage{
 DepthETOPO(tracks, dataLat = "Latitude", dataLon = "Longitude",
-  left = -179, right = -164, top = 60, bottom = 50, resolution = 30,
-  keep = F)
+  left = -179, right = -164, top = 60, bottom = 50,
+  resolution = 30, keep = F)
 }
 \arguments{
 \item{tracks}{data.frame of data to be queried for  latand long values}

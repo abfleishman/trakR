@@ -21,4 +21,4 @@ Suggusts:
   sp (>= 1.2-7),
   SDMTools (>= 1.1-221)
   testthat
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

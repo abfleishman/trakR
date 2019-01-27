@@ -17,9 +17,7 @@ from the MakeTrip function and a event column}
 has trips 1,2,3; BirdB has trips 1,2,3,4}
 
 \item{eventCol}{a column with values indicating the presence of an event.
-Must bein the format 0= no event, 1= event
-@importFrom rlang !! sym
-@importFrom dplyr bind_rows}
+Must bein the format 0= no event, 1= event}
 }
 \value{
 A new data frame with all original data plus two new columns:
