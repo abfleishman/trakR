@@ -93,7 +93,6 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
   RandomIndices_50<-numeric(length = its)
   RandomIndices_95<-numeric(length = its)
 
-  for (i in 1:its){  print(sample(UniTripID, n_UniTripID, replace = FALSE, prob = NULL))}
   for (i in 1:its){
 
     print(paste("iteration:" ,i,"of",its))
