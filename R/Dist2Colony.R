@@ -7,7 +7,7 @@
 #' @param dataLon quoted longitude
 #' @param ColonyLong a longitude value of length = 1
 #' @param ColonyLat a latitude value of length = 1
-#' @return a vector of distances from adjacent points in meters
+#' @return a vector of distances from adjacent points in kilometers
 #' @export
 
 Dist2Colony<-function(tracks,dataLat="lat",
