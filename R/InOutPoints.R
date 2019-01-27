@@ -32,8 +32,7 @@
 #' @param minDist2Col buffer in km around colony that will removed to avoid false out/in leg identification
 #' @param Plot True/False whether to plot each trip (good for figuring out the right parameters)
 #' @param pdfName fullpath to pdf that will be saved
-#' @importFrom dplyr lag
-
+#' @export
 InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
                       dist2colony="dist2colony",lag=1,nPointsToSmooth=10,
                       minDist2Col=5,Plot=F,pdfName="inout_plots.pdf"){
@@ -59,7 +58,7 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       inOutTemp<-rep(NA,length.out=nrow(trackssub))
 
       # Calculate the change (delta) in distance to the colony with a user defined lag
-      trackssub$ddist2colony<-trackssub[[dist2colony]]-lag(trackssub[[dist2colony]],n = lag)
+      trackssub$ddist2colony<-trackssub[[dist2colony]]-dplyr::lag(trackssub[[dist2colony]],n = lag)
 
       # Calculate a rolling mean for the delta dist2colony and round to 1 digit
       trackssub$ddist2colonysmooth[(1+lag):nrow(trackssub)]<-floor(round(rollmean(trackssub$ddist2colony[(1+lag):nrow(trackssub)],
