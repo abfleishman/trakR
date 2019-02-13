@@ -64,7 +64,7 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       trackssub$ddist2colonysmooth[(1+lag):nrow(trackssub)]<-floor(round(rollmean(trackssub$ddist2colony[(1+lag):nrow(trackssub)],
                                                                                   k=nPointsToSmooth,fill = NA,align = "left"),1))
 
-      zeroIdxs<-which(trackssub$ddist2colonysmooth==0&trackssub$dist2colony>=minDist2Col)
+      zeroIdxs<-which(trackssub$ddist2colonysmooth==0&trackssub[[dist2colony]]>=minDist2Col)
       apexPoint<-which(trackssub[[dist2colony]]==max(trackssub[[dist2colony]],na.rm=T))
 
       if(length(zeroIdxs)==0|min(zeroIdxs)>apexPoint) zeroIdxs<-apexPoint
