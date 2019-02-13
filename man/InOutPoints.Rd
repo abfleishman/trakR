@@ -6,8 +6,8 @@
 \usage{
 InOutPoints(tracks = tracks, CaptureID = "CaptureID",
   TripID = "TripID", dist2colony = "dist2colony", lag = 1,
-  nPointsToSmooth = 10, minDist2Col = 5, Plot = F,
-  pdfName = "inout_plots.pdf")
+  nPointsToSmooth = 10, minDist2Col = 5, Plot = F, Lon = "lon",
+  Lat = "lat", pdfName = "inout_plots.pdf")
 }
 \arguments{
 \item{tracks}{dataframe with tracking data sorted by ID, tripID, datetime}
@@ -18,15 +18,19 @@ InOutPoints(tracks = tracks, CaptureID = "CaptureID",
 
 \item{dist2colony}{column name holding distances to the colony of each point}
 
+\item{lag}{is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated}
+
 \item{nPointsToSmooth}{number of points to smooth to determine legs}
 
 \item{minDist2Col}{buffer in km around colony that will removed to avoid false out/in leg identification}
 
 \item{Plot}{True/False whether to plot each trip (good for figuring out the right parameters)}
 
-\item{pdfName}{fullpath to pdf that will be saved}
+\item{Lon}{column name holding Longitude (x-coord) (only needed if Plot==T)}
 
-\item{lagLag}{is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated}
+\item{Lat}{column name holding Latitude (y coord) (only needed if Plot==T)}
+
+\item{pdfName}{fullpath to pdf that will be saved (only needed if Plot==T)}
 }
 \description{
 This functions intention is to partition a track into an inbound and outbound

@@ -27,15 +27,17 @@
 #' @param CaptureID column name holding animal ID
 #' @param TripID column name holding Trip ID
 #' @param dist2colony column name holding distances to the colony of each point
-#' @param lagLag is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated
+#' @param lag is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated
 #' @param nPointsToSmooth number of points to smooth to determine legs
 #' @param minDist2Col buffer in km around colony that will removed to avoid false out/in leg identification
 #' @param Plot True/False whether to plot each trip (good for figuring out the right parameters)
-#' @param pdfName fullpath to pdf that will be saved
+#' @param Lon column name holding Longitude (x-coord) (only needed if Plot==T)
+#' @param Lat column name holding Latitude (y coord) (only needed if Plot==T)
+#' @param pdfName fullpath to pdf that will be saved (only needed if Plot==T)
 #' @export
 InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
                       dist2colony="dist2colony",lag=1,nPointsToSmooth=10,
-                      minDist2Col=5,Plot=F,pdfName="inout_plots.pdf"){
+                      minDist2Col=5,Plot=F,Lon="lon",Lat="lat",pdfName="inout_plots.pdf"){
   # Create the output vector
   inOut<-character(length = nrow(tracks))
   tracks$ddist2colonysmooth<-NA
@@ -77,8 +79,8 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       inOutTemp[inIdx]<-"in"
       inOutTemp[is.na(inOutTemp)]<-"mid"
       inOut[trxIdxs]<-inOutTemp
-      if(Plot==T) plot(trackssub$lon,trackssub$lat,col=factor(inOutTemp),main=paste("i: ",i," J:",j))
-      lines(trackssub$lon,trackssub$lat)
+      if(Plot==T) plot(trackssub[[Lon]],trackssub[[Lat]],col=factor(inOutTemp),main=paste("i: ",i," J:",j))
+      lines(trackssub[[Lon]],trackssub[[Lat]])
       # plot(trackssub$dist2colony,main=paste("i: ",i," J:",j))
     }
   }
