@@ -2,14 +2,14 @@
 #'
 #' This functions intention is to partition a track into an inbound and outbound
 #' leg demarkated when the bird first stops moving away from the colony. The
-#' first stopping point is identified by taking the change in dist2col (first
-#' dirivative?), smoothing it with a left aligned rolling mean, and rounding to 1
+#' first stopping point is identified by taking the change in dist2col first
+#' dirivative?, smoothing it with a left aligned rolling mean, and rounding to 1
 #' digit.  The first point where the bird is not changing the distance to the
 #' colony is the end of the outbound leg, while the last point where the birds is
 #' not getting close to the colony is the inbound leg.
-
+#'
 #' METHODS: Trip departure and return segments were identified by calculating ∆d
-#' , the change in distance from the colony, lagged by _lag_ gps points, and smoothed
+#' , the change in distance from the colony, lagged by lag gps points, and smoothed
 #' by calculating a 10 point left aligned rolling mean. These values were rounded
 #' to 1 significant digit. Trips were segmented by assigning points between the
 #' beginning of a trip and the first point ∆d which equaled zero as the “out” leg
@@ -21,7 +21,6 @@
 #' was furthest from the colony. This method effectively finds the first and last
 #' points that the bird ceases to move away from the colony over a 15-minute
 #' period.
-
 #'
 #' @param tracks dataframe with tracking data sorted by ID, tripID, datetime
 #' @param CaptureID column name holding animal ID
