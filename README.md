@@ -19,8 +19,13 @@ Install trakR package (lots of issues but this trip segmentation works currently
 
 ``` r
 # install.packages("devtools") # for installing packages from github
-# devtools::install_github("abfleishman/trakR") # install my package
+devtools::install_github("abfleishman/trakR",upgrade = "ask") # install my package
+```
 
+    ## Skipping install of 'trakR' from a github remote, the SHA1 (87c88bd1) has not changed since last install.
+    ##   Use `force = TRUE` to force installation
+
+``` r
 library(trakR)
 ```
 
@@ -67,6 +72,11 @@ tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
                                 DistCutOff = 0.1,
                                 Dist2Colony = "Dist2Col",
                                 NumLocCut = 3)
+```
+
+    ## [1] "CaptureID B53"
+
+``` r
 head(tracks_w_trips)
 ```
 
@@ -93,4 +103,4 @@ ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
 
-![](README_files/figure-markdown_github-ascii_identifiers/make%20trips-1.png)
+![](README_files/figure-markdown_github/make%20trips-1.png)
