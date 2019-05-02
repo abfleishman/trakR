@@ -19,13 +19,8 @@ Install trakR package (lots of issues but this trip segmentation works currently
 
 ``` r
 # install.packages("devtools") # for installing packages from github
-devtools::install_github("abfleishman/trakR",upgrade = "ask") # install my package
-```
+# devtools::install_github("abfleishman/trakR",upgrade = "ask") # install my package
 
-    ## Skipping install of 'trakR' from a github remote, the SHA1 (87c88bd1) has not changed since last install.
-    ##   Use `force = TRUE` to force installation
-
-``` r
 library(trakR)
 ```
 
