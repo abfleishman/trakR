@@ -16,6 +16,7 @@
 #' @return A new data frame with all original data plus two new columns:
 #'   event_bird with numbered events 1:n_vents by bird, and event_trip with
 #'   numbered events 1:n_events per trip
+#'   @importFrom dplyr bind_rows
 #' @export
 
 label_events<-function(dat,BirdID="CaptureID",TripID="TripID",eventCol="forage"){
@@ -56,7 +57,7 @@ label_events<-function(dat,BirdID="CaptureID",TripID="TripID",eventCol="forage")
 
         dat_temp_trip$event_trip[startIdx_trip[kk]:endIdx_trip[kk]]<-kk
       }
-      data_out<-dplyr::bind_rows(data_out,dat_temp_trip)
+      data_out<-bind_rows(data_out,dat_temp_trip)
     }
   }
   return(data_out)

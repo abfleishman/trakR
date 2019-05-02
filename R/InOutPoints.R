@@ -34,6 +34,11 @@
 #' @param Lon column name holding Longitude (x-coord) (only needed if Plot==T)
 #' @param Lat column name holding Latitude (y coord) (only needed if Plot==T)
 #' @param pdfName fullpath to pdf that will be saved (only needed if Plot==T)
+#' @importFrom graphics  plot lines
+#' @importFrom grDevices pdf dev.off
+#' @importFrom dplyr lag arrange_
+#' @importFrom magrittr %>%
+#' @importFrom zoo rollmean
 #' @export
 InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
                       dist2colony="dist2colony",lag=1,nPointsToSmooth=10,
@@ -60,7 +65,7 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       inOutTemp<-rep(NA,length.out=nrow(trackssub))
 
       # Calculate the change (delta) in distance to the colony with a user defined lag
-      trackssub$ddist2colony<-trackssub[[dist2colony]]-dplyr::lag(trackssub[[dist2colony]],n = lag)
+      trackssub$ddist2colony<-trackssub[[dist2colony]]-lag(trackssub[[dist2colony]],n = lag)
 
       # Calculate a rolling mean for the delta dist2colony and round to 1 digit
       trackssub$ddist2colonysmooth[(1+lag):nrow(trackssub)]<-floor(round(rollmean(trackssub$ddist2colony[(1+lag):nrow(trackssub)],

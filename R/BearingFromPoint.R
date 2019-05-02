@@ -8,6 +8,9 @@
 #' @param lon a quoted string indicating the column name for latitude values
 #' @return a vector of bearings from adjacent points
 #' @export
+#' @importFrom geosphere bearing
+#' @importFrom dplyr lead
+
 BearingFromPoint<-function(tracks,
                            ID = "File",
                            lat = "Latitude",
@@ -25,11 +28,13 @@ BearingFromPoint<-function(tracks,
     Data<-tracks[tracks[[ID]]==Birds[i],]
 
     BearingfromPoint<-c(round(
-      geosphere::bearing(
+      bearing(
         cbind(Data[[lon]],Data[[lat]]),
-        cbind(dplyr::lead(Data[[lon]]), dplyr::lead(Data[[lat]]))),
+        cbind(lead(Data[[lon]]), lead(Data[[lat]]))),
       digits=1))
+
     dataOut<-c(dataOut,BearingfromPoint)
+
   }
   return(dataOut)
 }

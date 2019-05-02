@@ -2,7 +2,7 @@
 % Please edit documentation in R/Dist2Colony.R
 \name{Dist2Colony}
 \alias{Dist2Colony}
-\title{Dist2Colony Calculate the distance of a vector of points (lat,long) to a a fixed point}
+\title{Dist2Colony Calculate the distance of a vector of points (lat,long) to a fixed point}
 \usage{
 Dist2Colony(tracks, dataLat = "lat", dataLon = "lon", ColonyLat,
   ColonyLong)
@@ -22,7 +22,7 @@ Dist2Colony(tracks, dataLat = "lat", dataLon = "lon", ColonyLat,
 a vector of distances from adjacent points in kilometers
 }
 \description{
-Dist2Colony Calculate the distance of a vector of points (lat,long) to a a fixed point
+Calculate the distance of a vector of points (lat,long) to a fixed point
 }
 \author{
 Abram B. Fleishman <abram.fleishman AT sjsu.edu>

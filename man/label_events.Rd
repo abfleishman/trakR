@@ -23,6 +23,7 @@ Must bein the format 0= no event, 1= event}
 A new data frame with all original data plus two new columns:
   event_bird with numbered events 1:n_vents by bird, and event_trip with
   numbered events 1:n_events per trip
+  @importFrom dplyr bind_rows
 }
 \description{
 Sometimes it is useful to number events consecutively such as forageing

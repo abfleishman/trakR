@@ -24,6 +24,7 @@
 #' @return A new data frame with all original data plus two new columns: TripNum
 #'   (consecutive trip number 0 = at colony) and ColonyMovement (in/out colony
 #'   movements)
+#' @importFrom dplyr lead bind_rows
 #' @export
 
 MakeTrip<-function(tracks,
@@ -52,12 +53,12 @@ MakeTrip<-function(tracks,
     # else NA
     # if the current ooint is in the colony but the next point is out of
     # the colony label it an "out"
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 0 & dplyr::lead(BirdSub$InColony) == 1, "Out", NA)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 0 & lead(BirdSub$InColony) == 1, "Out", NA)
 
     # Detect state change for "In" events else "out" or NA
     # if the current ooint is out of the colony but the next point is in
     # the colony label it an "in"
-    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 1 & dplyr::lead(BirdSub$InColony) == 0, "In", BirdSub$ColonyMovement)
+    BirdSub$ColonyMovement<-ifelse(BirdSub$InColony == 1 & lead(BirdSub$InColony) == 0, "In", BirdSub$ColonyMovement)
 
     # Get indicies of out events
     Out<-grep("Out", x = BirdSub$ColonyMovement)
@@ -99,7 +100,7 @@ MakeTrip<-function(tracks,
       }
     }
 
-    dataOut<-dplyr::bind_rows(dataOut,BirdSub)
+    dataOut<-bind_rows(dataOut,BirdSub)
   }
 
   # if not on a trip (within distance to colony threshold) than give a 0

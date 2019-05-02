@@ -24,11 +24,17 @@
 #' @param ud.grid a "SpatialPixelsDataFrame"  generated with an extent and cell
 #'   size with the function adehabitatMA::ascgen()
 #' @param Plot TRUE/FALSE if each randomization should be plotted?
+#' @importFrom sp SpatialPointsDataFrame CRS spTransform
+#' @importFrom adehabitatHR kernelUD getverticeshr kerneloverlaphr
+#' @importFrom ggplot2 fortify ggplot geom_polygon aes facet_wrap labs
+#' @importFrom dplyr bind_rows mutate
+#' @importFrom utils head
+#' @importFrom stats sd
 #' @export
 kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
                        lon="Longitude",lat="Latitude",
                        colonyLon=-113.244555,colonyLat=31.015513,
-                       its=1000, h=1.4809524, ud.grid=cos.grid,Plot=F){
+                       its=1000, h=1.4809524, ud.grid,Plot=F){
 
   # get unique trips
   UniTripID<-unique(tracks[[tripid]]) #unique trips
@@ -39,7 +45,7 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
   # get n trips for each group and the total n trips
   GroupA_length<-length(unique(tracks[[ tripid ]][ tracks[[groupid]]==GroupID_levels[1] ]))
   GroupB_length<-length(unique(tracks[[tripid]][ tracks[[groupid]]==GroupID_levels[2] ]))
-  n_UniTripID<-GroupA_length+Groupb_length
+  n_UniTripID<-GroupA_length+GroupB_length
 
   # make a trip and grou ID colomn for later use
   tracks$groupid<-tracks[[groupid]]
@@ -123,7 +129,7 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
                                                   " +lat_0=", colonyLat	, sep="")))
 
     # make the kernelUD
-    ud1 <- kernelUD(tracks.spdf.t, h = h,grid=cos.grid)
+    ud1 <- kernelUD(tracks.spdf.t, h = h,grid=ud.grid)
 
     # Plot each if desired (only for diagnostics?)
     if(Plot==T){

@@ -6,7 +6,7 @@
 #' @param tracks data.frame of data to be queried for lat and long values
 #' @param ID quoted name of column in data that is and ID field
 #' @param DateTime quoted name of column in data that has DateTime values in the format YYYY-mm-dd HH:MM:SS
-
+#' @importFrom dplyr lead
 #' @return A vector of times differnces in seconds between adjacent points in an animal track
 #' @export
 #############################################################################################
@@ -25,7 +25,7 @@ InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
     Data<-tracks[tracks[[ID]] == Birds[i],]
 
     Data$PointDur <- NA
-    Data$PointDur <- dplyr::lead(Data[[DateTime]]) - Data[[DateTime]]
+    Data$PointDur <- lead(Data[[DateTime]]) - Data[[DateTime]]
 
     dataOut<-c(dataOut,Data$PointDur)
   }

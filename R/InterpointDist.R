@@ -6,7 +6,7 @@
 #' @param ID quoted name of column in data that is and ID field
 #' @param lat quoted name of column in data that has latitude values
 #' @param lon quoted name of column in data that has longitude values
-
+#' @importFrom argosfilter distanceTrack
 #' @return A vector of distances in meters between adjacent points in an animal track
 #' @export
 
@@ -22,7 +22,7 @@ InterpointDist<-function(tracks,
     # argosfilter::distanceTrack is a function to calculate distance between
     # points along a track
     InterpointDist<-c(NA,
-                      round(argosfilter::distanceTrack(lat = Data[[lat]],
+                      round(distanceTrack(lat = Data[[lat]],
                                                        lon = Data[[lon]])*1000,
                             digits=1))
     dataOut<-c(dataOut, InterpointDist)

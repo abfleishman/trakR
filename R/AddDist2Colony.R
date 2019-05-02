@@ -3,7 +3,7 @@
 #' AddDist2Colony takes tracks with lat/lon positions and and
 #'
 #' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
-
+#'
 #' @param tracks a data frame with with latitude and longitude and colony site names
 #' @param CaptureSitesData data.frame with colony site names and colony lat long
 #' @param dataLon quoted name of column in data that has longitude values
@@ -12,7 +12,9 @@
 #' @param capLon quoted name of column in CaptureSitesData that has longitude values
 #' @param SiteName a quoted string indicating what the column houses your SiteNames.
 #'   Must be the same across both your data and the CaptureSitesData
+#'
 #' @return vector of distances from each colony
+#'
 #' @export
 
 AddDist2Colony<-function(tracks,
