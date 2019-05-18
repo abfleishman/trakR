@@ -2,7 +2,7 @@
 #'
 #' Vector of times between points
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks data.frame of data to be queried for lat and long values
 #' @param ID quoted name of column in data that is and ID field
 #' @param DateTime quoted name of column in data that has DateTime values in the format YYYY-mm-dd HH:MM:SS

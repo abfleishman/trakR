@@ -21,7 +21,7 @@
 #' was furthest from the colony. This method effectively finds the first and last
 #' points that the bird ceases to move away from the colony over a 15-minute
 #' period.
-#'
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks dataframe with tracking data sorted by ID, tripID, datetime
 #' @param CaptureID column name holding animal ID
 #' @param TripID column name holding Trip ID

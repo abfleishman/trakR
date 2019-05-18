@@ -2,7 +2,7 @@
 #'
 #' AddDist2Colony takes tracks with lat/lon positions and and
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #'
 #' @param tracks a data frame with with latitude and longitude and colony site names
 #' @param CaptureSitesData data.frame with colony site names and colony lat long

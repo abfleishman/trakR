@@ -1,7 +1,7 @@
 #' InterpointDist Calculate the Distance between points on a track for each bird
 #' Vector of distances between points
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks data.frame of data to be queried for  lat and long values
 #' @param ID quoted name of column in data that is and ID field
 #' @param lat quoted name of column in data that has latitude values

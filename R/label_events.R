@@ -5,7 +5,8 @@
 #' event/bout.  This function numbers these evens consecutively by bird and by
 #' trip nested within bird.
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
+#' @author Rachael Orben \email{Rachael.Orben@@oregonstate.edu}
 #' @param dat data.frame of with a minimum of three columns with birdID, tripID
 #'   from the MakeTrip function and a event column
 #' @param BirdID a unique ID for each bird

@@ -2,7 +2,7 @@
 #'
 #'Calculate the distance of a vector of points (lat,long) to a fixed point
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #'
 #' @param tracks a dataframe
 #' @param dataLat quoted latitude

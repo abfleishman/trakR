@@ -1,6 +1,6 @@
 #' Calculate the turning angles between points on a track for each bird
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks data.frame of data to be queried for  latand long values
 #' @param ID quoted name of column in data that is and ID field
 #' @param Bearing quoted name of column in data that has the bearing between points in an animal track

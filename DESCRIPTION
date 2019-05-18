@@ -1,11 +1,12 @@
 Package: trakR
 Type: Package
 Title: Basic Animal Tracking Data Analysis Tools
-Version: 0.0.4
+Version: 0.0.5
 Author: Abram B. Fleishman <abram@conservationmetrics.com>
+Author: Rachael Orben <Rachael.Orben@oregonstate.edu>
 Maintainer: Abram B. Fleishman <abram@conservationmetrics.com>
-Description: Basic functions for processing animal tracking data
-    Still needs to be filled in...
+Description: Basic functions for processing animal tracking data.  These 
+    functions were writen and used for my theis or during other collaborations.  
     I believe this collection of functions will be usful for 
     others an so I am sharing. It you have problems, please open an issue
     on github.com/abfleishman/trakR 
