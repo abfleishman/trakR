@@ -1,21 +1,30 @@
 Basic Trip Segmentation
 ================
 
-Trip segmentation for animal tracking data
-------------------------------------------
+## Trip segmentation for animal tracking data
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888341.svg)](https://doi.org/10.5281/zenodo.2888341)
+
+Cite as: Fleishman, A.B. and Orben, R.A. 2019. trakR: Basic Animal
+Tracking Data Analysis Tools, V0.0.5. GitHub repository.
+<https://github.com/abfleishman/trakR> <DOI:10.5281/zenodo.2888341>
 
 ``` r
 library(ggplot2)
 library(maps)
 library(mapdata)
 library(dplyr)
+```
+
+    ## Warning: package 'dplyr' was built under R version 3.5.3
+
+``` r
 library(stringr)
 library(lubridate)
 library(argosfilter)
 ```
 
-Install trakR package (lots of issues but this trip segmentation works currently)
-=================================================================================
+# Install trakR package (lots of issues but this trip segmentation works currently)
 
 ``` r
 # install.packages("devtools") # for installing packages from github
@@ -24,12 +33,14 @@ Install trakR package (lots of issues but this trip segmentation works currently
 library(trakR)
 ```
 
-Load tracks
-===========
+# Load tracks
 
-This should be one file for all the tracks or create a data.frame with all the tracks. The function `MakeTrip` is set up for processing multiple animals at once
+This should be one file for all the tracks or create a data.frame with
+all the tracks. The function `MakeTrip` is set up for processing
+multiple animals at once
 
-For this tutorial we will use a single bird in the included `tracks` dataset.
+For this tutorial we will use a single bird in the included `tracks`
+dataset.
 
 ``` r
 data("tracks")
@@ -45,7 +56,9 @@ head(tracks)
     ## 5 2015-06-24 13:45:08 -169.6768 56.60345       B53 0.007025605
     ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799
 
-The `MakeTrip` function requiers a column with distances to the colony for each point. The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run.
+The `MakeTrip` function requiers a column with distances to the colony
+for each point. The `Dist2Colony` function will calculate these
+distances. It requires the `argosfilter` package to run.
 
 ``` r
 library(argosfilter)
@@ -56,10 +69,13 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
                                     ColonyLong = -169.6760)
 ```
 
-segment trips
-=============
+# segment trips
 
-The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.
+The `makeTrip` function finds the points where a animal moves some
+treshold distance `DistCutOff` away from the colony and the points where
+the animal returns within that threshold and annotates the dataframe
+with two new column, one indicating those “In” and “Out” points and
+another with trip numbers.
 
 ``` r
 tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
@@ -78,10 +94,10 @@ head(tracks_w_trips)
     ##              DateTime Longitude Latitude CaptureID Dist2Colony    Dist2Col
     ## 1 2015-06-24 03:34:21 -169.6760 56.60329       B53 0.052719955 0.002265022
     ## 2 2015-06-24 03:36:03 -169.6765 56.60260       B53 0.094288021 0.082873349
-    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632033
-    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436610
+    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632123
+    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436792
     ## 5 2015-06-24 13:45:08 -169.6768 56.60345       B53 0.007025605 0.049489926
-    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277755
+    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277667
     ##   ColonyMovement TripNum
     ## 1           <NA>       0
     ## 2           <NA>       0
@@ -98,4 +114,4 @@ ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
 
-![](README_files/figure-markdown_github/make%20trips-1.png)
+![](README_files/figure-gfm/make%20trips-1.png)<!-- -->
