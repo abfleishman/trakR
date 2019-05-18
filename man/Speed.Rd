@@ -20,5 +20,5 @@ Speed Calculate the instantanious speed at each point along on a track for
 each bird
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

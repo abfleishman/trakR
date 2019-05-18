@@ -46,3 +46,8 @@ stress. You must have a tripID column that is unique to the trip, not just
 trip within bird.  This can be created by paste(birdID, tripID,sep="_) if you
 do not already have this column.
 }
+\author{
+Rachael Orben \email{Rachael.Orben@oregonstate.edu}
+
+Abram B. Fleishman \email{abram@conservationmetrics.com}
+}

@@ -19,6 +19,8 @@ tracks
 this dataset is a not big...
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
+
+Rachael Orben \email{Rachael.Orben@oregonstate.edu}
 }
 \keyword{datasets}

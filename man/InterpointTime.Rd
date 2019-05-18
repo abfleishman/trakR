@@ -20,5 +20,5 @@ A vector of times differnces in seconds between adjacent points in an animal tra
 Vector of times between points
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

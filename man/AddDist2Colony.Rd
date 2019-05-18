@@ -31,5 +31,5 @@ vector of distances from each colony
 AddDist2Colony takes tracks with lat/lon positions and and
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

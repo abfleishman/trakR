@@ -34,5 +34,5 @@ A vector of elevation/depth in meters from ETOPO1 world bathymatry at a resoluti
 It would be nice to find something higher resolution
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }
