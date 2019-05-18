@@ -2,9 +2,8 @@ Package: trakR
 Type: Package
 Title: Basic Animal Tracking Data Analysis Tools
 Version: 0.0.5
-Author: Abram B. Fleishman <abram@conservationmetrics.com>
-Author: Rachael Orben <Rachael.Orben@oregonstate.edu>
-Maintainer: Abram B. Fleishman <abram@conservationmetrics.com>
+Authors@R: c(person("Abram","B", "Fleishman", email = "abram@conservationmetrics.com", role = c("cre","aut")),
+    person("Rachael","A", "Orben", email = "rachael.orben@oregonstate.edu.com", role = "aut"))
 Description: Basic functions for processing animal tracking data.  These 
     functions were writen and used for my theis or during other collaborations.  
     I believe this collection of functions will be usful for 
@@ -16,6 +15,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
   dplyr,
+  purrr,
   argosfilter,
   geosphere,
   marmap,
