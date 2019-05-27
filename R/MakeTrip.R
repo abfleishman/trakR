@@ -12,7 +12,7 @@
 #' 0.  In the future it could be nice to have these labeled with sequetial
 #' numbers as well.
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks data.frame of data that you want to parse into trips
 #' @param ID quoted name of column in data that is a unique key to individual
 #'   bird_tag_deployment combos. This is the File from the GypsyLocRead output

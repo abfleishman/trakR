@@ -32,5 +32,7 @@ event/bout.  This function numbers these evens consecutively by bird and by
 trip nested within bird.
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
+
+Rachael Orben \email{Rachael.Orben@oregonstate.edu}
 }

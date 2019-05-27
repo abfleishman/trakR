@@ -40,5 +40,5 @@ sequential number starting with 1.  All points inside the cutoff are labled
 numbers as well.
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

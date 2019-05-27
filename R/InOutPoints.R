@@ -8,20 +8,20 @@
 #' colony is the end of the outbound leg, while the last point where the birds is
 #' not getting close to the colony is the inbound leg.
 #'
-#' METHODS: Trip departure and return segments were identified by calculating ∆d
+#' METHODS: Trip departure and return segments were identified by calculating delta-d
 #' , the change in distance from the colony, lagged by lag gps points, and smoothed
 #' by calculating a 10 point left aligned rolling mean. These values were rounded
 #' to 1 significant digit. Trips were segmented by assigning points between the
-#' beginning of a trip and the first point ∆d which equaled zero as the “out” leg
-#' and the last point ∆d that equaled zero until the final point of the trip as
-#' the “in” leg. The island was buffered so that the first and last points ∆d
+#' beginning of a trip and the first point delta-d which equaled zero as the “out” leg
+#' and the last point delta-d that equaled zero until the final point of the trip as
+#' the “in” leg. The island was buffered so that the first and last points delta-d
 #' could not be within 10 km of the island. If there was no point on the trip
-#' that ∆d reached zero, i.e. the bird continuously moved away from the colony
+#' that delta-d reached zero, i.e. the bird continuously moved away from the colony
 #' until it began to return, the trip was split at the apex point where the bird
 #' was furthest from the colony. This method effectively finds the first and last
 #' points that the bird ceases to move away from the colony over a 15-minute
 #' period.
-#'
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param tracks dataframe with tracking data sorted by ID, tripID, datetime
 #' @param CaptureID column name holding animal ID
 #' @param TripID column name holding Trip ID

@@ -20,5 +20,5 @@ A vector of turning angles (degrees) between adjacent points in an animal track
 Calculate the turning angles between points on a track for each bird
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

@@ -23,5 +23,5 @@ a vector of bearings from adjacent points
 BearingFromPoint Calculate bearing between two points along a vector
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

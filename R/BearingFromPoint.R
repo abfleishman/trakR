@@ -1,7 +1,7 @@
 #' BearingFromPoint Calculate bearing between two points along a vector
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
-
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
+#'
 #' @param tracks a dataframe
 #' @param ID a quoted string indicating the column name for a unique ID key
 #' @param lat a quoted string indicating the column name for longitude values

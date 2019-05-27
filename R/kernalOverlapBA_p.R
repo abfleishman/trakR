@@ -6,6 +6,9 @@
 #' trip within bird.  This can be created by paste(birdID, tripID,sep="_) if you
 #' do not already have this column.
 #'
+#' @author Rachael Orben \email{Rachael.Orben@@oregonstate.edu}
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
+#'
 #' @param tracks a data frame with tracking data
 #' @param  tripid quoted column name housing unique trip ID. This can be created
 #'   by paste(birdID, tripID,sep="_) if it does not already exist.
@@ -24,6 +27,7 @@
 #' @param ud.grid a "SpatialPixelsDataFrame"  generated with an extent and cell
 #'   size with the function adehabitatMA::ascgen()
 #' @param Plot TRUE/FALSE if each randomization should be plotted?
+#'
 #' @importFrom sp SpatialPointsDataFrame CRS spTransform
 #' @importFrom adehabitatHR kernelUD getverticeshr kerneloverlaphr
 #' @importFrom ggplot2 fortify ggplot geom_polygon aes facet_wrap labs

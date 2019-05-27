@@ -25,5 +25,5 @@ a vector of distances from adjacent points in kilometers
 Calculate the distance of a vector of points (lat,long) to a fixed point
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }

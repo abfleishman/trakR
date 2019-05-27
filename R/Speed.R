@@ -1,7 +1,7 @@
 #' Speed Calculate the instantanious speed at each point along on a track for
 #' each bird
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #' @param Dist vector of distances between points (m)
 #' @param Time vector of times between points (Seconds)
 

@@ -2,7 +2,8 @@
 #'
 #' this dataset is a not big...
 #'
-#' @author Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+#' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
+#' @author Rachael Orben \email{Rachael.Orben@@oregonstate.edu}
 #'
 #' @format A data frame with 2964 rows and 5 variables:
 #' \describe{

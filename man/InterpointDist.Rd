@@ -25,5 +25,5 @@ InterpointDist Calculate the Distance between points on a track for each bird
 Vector of distances between points
 }
 \author{
-Abram B. Fleishman <abram.fleishman AT sjsu.edu>
+Abram B. Fleishman \email{abram@conservationmetrics.com}
 }
