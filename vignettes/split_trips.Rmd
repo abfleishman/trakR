@@ -1,0 +1,19 @@
+---
+title: "Split a track by returns to a central point"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Split a track by returns to a central point}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(trakR)
+```

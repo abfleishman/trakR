@@ -1,0 +1,19 @@
+---
+title: "Are your groups sperated in space?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Are your groups sperated in space?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(trakR)
+```
