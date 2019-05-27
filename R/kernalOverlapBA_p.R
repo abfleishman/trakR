@@ -80,14 +80,15 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
   ud <- kernelUD(tracks.spdf.t, h = h,grid=ud.grid)
 
   # Plot the actual overlap
-    uds<-suppressWarnings(bind_rows(
+  if(Plot==T){
+  uds<-suppressWarnings(bind_rows(
       mutate(suppressWarnings(fortify(getverticeshr(ud, percent=95, standardize=T))), ud="95"),
       mutate(suppressWarnings(fortify(getverticeshr(ud, percent=50, standardize=T))), ud="50")))
     print(ggplot(data=uds)+
             geom_polygon(aes(x=long,y=lat,group=group,fill=id),alpha=.5)+
             facet_wrap(~ud)+
             labs(fill=groupid))
-
+}
 
   # 50% overlap
   BA_o50<-kerneloverlaphr(ud , method="BA", percent=50, conditional=TRUE)
