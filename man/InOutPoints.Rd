@@ -5,9 +5,10 @@
 \title{Inbound/Outbound flight leg identification}
 \usage{
 InOutPoints(tracks = tracks, CaptureID = "CaptureID",
-  TripID = "TripID", dist2colony = "dist2colony", lag = 1,
-  nPointsToSmooth = 10, minDist2Col = 5, Plot = F, Lon = "lon",
-  Lat = "lat", pdfName = "inout_plots.pdf")
+  TripID = "TripID", DateTime = "datetime",
+  dist2colony = "dist2colony", lag = 1, nPointsToSmooth = 10,
+  minDist2Col = 5, Plot = F, Lon = "lon", Lat = "lat",
+  pdfName = "inout_plots.pdf")
 }
 \arguments{
 \item{tracks}{dataframe with tracking data sorted by ID, tripID, datetime}
@@ -15,6 +16,8 @@ InOutPoints(tracks = tracks, CaptureID = "CaptureID",
 \item{CaptureID}{column name holding animal ID}
 
 \item{TripID}{column name holding Trip ID}
+
+\item{DateTime}{column name holding the datetime}
 
 \item{dist2colony}{column name holding distances to the colony of each point}
 
@@ -36,7 +39,7 @@ InOutPoints(tracks = tracks, CaptureID = "CaptureID",
 This functions intention is to partition a track into an inbound and outbound
 leg demarkated when the bird first stops moving away from the colony. The
 first stopping point is identified by taking the change in dist2col first
-dirivative?, smoothing it with a left aligned rolling mean, and rounding to 1
+derivative?, smoothing it with a left aligned rolling mean, and rounding to 1
 digit.  The first point where the bird is not changing the distance to the
 colony is the end of the outbound leg, while the last point where the birds is
 not getting close to the colony is the inbound leg.

@@ -1,41 +1,28 @@
 ---
-title: "Basic Trip Segmentation"
-output: github_document
+title: "Split a track by returns to a central point"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Split a track by returns to a central point}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 7,
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
 
-## Trip segmentation for animal tracking data
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888341.svg)](https://doi.org/10.5281/zenodo.2888341) [![Github All Releases](https://img.shields.io/github/downloads/abfleishman/trakR/total.svg)]()
-
-Cite as: 
-Fleishman, A.B. and Orben, R.A. 2019. trakR: Basic Animal Tracking Data Analysis Tools, V0.0.5. GitHub repository. <https://github.com/abfleishman/trakR> DOI:10.5281/zenodo.2888341
-
-```{r load packages,echo=TRUE,results='hide',message=FALSE}
-
+```{r setup}
 library(ggplot2)
-library(maps)
-library(mapdata)
-library(dplyr)
-library(stringr)
-library(lubridate)
-library(argosfilter)
-```
-
-# Install trakR package (lots of issues but this trip segmentation works currently)
-```{r install trakR}
-# install.packages("devtools") # for installing packages from github
-# devtools::install_github("abfleishman/trakR",upgrade = "ask") # install my package
-
 library(trakR)
 ```
 
 # Load tracks 
 This should be one file for all the tracks or create a data.frame with all the tracks.
-The function `MakeTrip` is set up for processing multiple animals at once
+The function `MakeTrip` is set up for processing multiple animals at once.
  
 For this tutorial we will use a single bird in the included `tracks` dataset.
 ```{r load data}
@@ -44,10 +31,10 @@ data("tracks")
 head(tracks)
 ```
 
-The `MakeTrip` function requiers a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run.
+
+The `MakeTrip` function requiers a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances.
 
 ```{r dist2col}
-library(argosfilter)
 tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
                                     dataLat = "Latitude",
                                     dataLon = "Longitude",
@@ -55,8 +42,9 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
                                     ColonyLong = -169.6760)
 ```
 
-# Split Trips
-The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
+## segment trips
+
+The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the data.frame with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
 ```{r make trips}
 
 tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
@@ -66,13 +54,17 @@ tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
                                 NumLocCut = 3)
 head(tracks_w_trips)
 
+```
+
+You can see that the track was split into multiple trips
+```{r plot,fig.asp=1}
+
 # Plot a bird to check
 ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
   geom_path(size=.7)+
   geom_point(data=tracks_w_trips[tracks_w_trips$ColonyMovement%in%c("Out","In"),])+
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
-
 
 ## trip segmentation
 

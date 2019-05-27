@@ -4,6 +4,8 @@ Basic Trip Segmentation
 ## Trip segmentation for animal tracking data
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888341.svg)](https://doi.org/10.5281/zenodo.2888341)
+[![Github All
+Releases](https://img.shields.io/github/downloads/abfleishman/trakR/total.svg)]()
 
 Cite as: Fleishman, A.B. and Orben, R.A. 2019. trakR: Basic Animal
 Tracking Data Analysis Tools, V0.0.5. GitHub repository.
@@ -14,11 +16,6 @@ library(ggplot2)
 library(maps)
 library(mapdata)
 library(dplyr)
-```
-
-    ## Warning: package 'dplyr' was built under R version 3.5.3
-
-``` r
 library(stringr)
 library(lubridate)
 library(argosfilter)
@@ -69,7 +66,7 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
                                     ColonyLong = -169.6760)
 ```
 
-# segment trips
+# Split Trips
 
 The `makeTrip` function finds the points where a animal moves some
 treshold distance `DistCutOff` away from the colony and the points where
@@ -94,10 +91,10 @@ head(tracks_w_trips)
     ##              DateTime Longitude Latitude CaptureID Dist2Colony    Dist2Col
     ## 1 2015-06-24 03:34:21 -169.6760 56.60329       B53 0.052719955 0.002265022
     ## 2 2015-06-24 03:36:03 -169.6765 56.60260       B53 0.094288021 0.082873349
-    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632123
-    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436792
+    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632033
+    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436610
     ## 5 2015-06-24 13:45:08 -169.6768 56.60345       B53 0.007025605 0.049489926
-    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277667
+    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277755
     ##   ColonyMovement TripNum
     ## 1           <NA>       0
     ## 2           <NA>       0
@@ -115,3 +112,30 @@ ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
 ```
 
 ![](README_files/figure-gfm/make%20trips-1.png)<!-- -->
+
+## trip segmentation
+
+Another common task in processing tracking data is to segment a trip
+into a outbound, middle, and inbound leg. This can be done tediously by
+anotating each trip by hand or you can try using the `InOutPoints`
+function in `trakR`.
+
+``` r
+tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
+                          CaptureID="CaptureID",
+                          DateTime="DateTime",
+                          TripID="TripNum",
+                          dist2colony="Dist2Colony",lag=3,
+                          nPointsToSmooth =10,minDist2Col = 10,
+                          Lon = "Longitude",Lat="Latitude",
+                          Plot = T,pdfName = "inout_plots.pdf")
+
+ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
+       aes(Longitude,Latitude,col=factor(TripNum)))+
+  geom_path(aes(lty=INOut),size=1)+
+  scale_linetype_manual(values = c(1,2,3))+
+  facet_wrap(~TripNum)+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
