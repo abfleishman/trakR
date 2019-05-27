@@ -9,11 +9,80 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  fig.width = 7,
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
 ```{r setup}
+library(ggplot2)
 library(trakR)
+```
+
+# Load tracks 
+This should be one file for all the tracks or create a data.frame with all the tracks.
+The function `MakeTrip` is set up for processing multiple animals at once.
+ 
+For this tutorial we will use a single bird in the included `tracks` dataset.
+```{r load data}
+data("tracks")
+
+head(tracks)
+```
+
+
+The `MakeTrip` function requiers a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances.
+
+```{r dist2col}
+tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
+                                    dataLat = "Latitude",
+                                    dataLon = "Longitude",
+                                    ColonyLat = 56.60329,
+                                    ColonyLong = -169.6760)
+```
+
+## segment trips
+
+The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the data.frame with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
+```{r make trips}
+
+tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
+                                ID = "CaptureID",
+                                DistCutOff = 0.1,
+                                Dist2Colony = "Dist2Col",
+                                NumLocCut = 3)
+head(tracks_w_trips)
+
+```
+
+You can see that the track was split into multiple trips
+```{r plot,fig.height=5,fig.asp=1}
+
+# Plot a bird to check
+ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
+  geom_path(size=.7)+
+  geom_point(data=tracks_w_trips[tracks_w_trips$ColonyMovement%in%c("Out","In"),])+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
+
+## trip segmentation
+
+Another common task in processing tracking data is to segment a trip into a outbound, middle, and inbound leg.  This can be done tediously by anotating each trip by hand or you can try using the `InOutPoints` function in `trakR`. 
+
+```{r}
+tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
+                          CaptureID="CaptureID",
+                          DateTime="DateTime",
+                          TripID="TripNum",
+                          dist2colony="Dist2Colony",lag=3,
+                          nPointsToSmooth =10,minDist2Col = 10,
+                          Lon = "Longitude",Lat="Latitude",
+                          Plot = T,pdfName = "inout_plots.pdf")
+
+ggplot(tracks_w_trips %>% filter(TripNum%in%c(5,7)),aes(Longitude,Latitude,col=factor(TripNum)))+
+  geom_path(aes(lty=INOut),size=1)+
+  scale_linetype_manual(values = c(1,2,3))+
+  facet_wrap(~TripNum)+
+  theme_classic(base_size = 16)+labs(color="TripNum")
 ```
