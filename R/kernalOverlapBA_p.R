@@ -30,15 +30,16 @@
 #'
 #' @importFrom sp SpatialPointsDataFrame CRS spTransform
 #' @importFrom adehabitatHR kernelUD getverticeshr kerneloverlaphr
-#' @importFrom ggplot2 fortify ggplot geom_polygon aes facet_wrap labs
+#' @importFrom ggplot2 fortify ggplot geom_polygon aes_string facet_wrap labs
 #' @importFrom dplyr bind_rows mutate
 #' @importFrom utils head
 #' @importFrom stats sd
 #' @export
+
 kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
-                       lon="Longitude",lat="Latitude",
-                       colonyLon=-113.244555,colonyLat=31.015513,
-                       its=1000, h=1.4809524, ud.grid,Plot=F){
+                             lon="Longitude",lat="Latitude",
+                             colonyLon=-113.244555, colonyLat=31.015513,
+                             its=10, h=1.4809524, ud.grid, Plot=F){
 
   # get unique trips
   UniTripID<-unique(tracks[[tripid]]) #unique trips
@@ -80,15 +81,25 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
   ud <- kernelUD(tracks.spdf.t, h = h,grid=ud.grid)
 
   # Plot the actual overlap
-  if(Plot==T){
-  uds<-suppressWarnings(bind_rows(
-      mutate(suppressWarnings(fortify(getverticeshr(ud, percent=95, standardize=T))), ud="95"),
-      mutate(suppressWarnings(fortify(getverticeshr(ud, percent=50, standardize=T))), ud="50")))
+    # make empty df to solve cmd check issue unbound var
+    # uds<-data.frame(long = numeric(0),
+    #                 lat = numeric(0),
+    #                 order = integer(0),
+    #                 hole = logical(0),
+    #                 piece = character(0),
+    #                 id = character(0),
+    #                 group = character(0),
+    #                 ud = character(0))
+
+uds<-suppressWarnings(bind_rows(
+      mutate(suppressMessages(fortify(getverticeshr(ud, percent=95, standardize=T))), ud="95"),
+      mutate(suppressMessages(fortify(getverticeshr(ud, percent=50, standardize=T))), ud="50")))
+
     print(ggplot(data=uds)+
-            geom_polygon(aes(x=long,y=lat,group=group,fill=id),alpha=.5)+
+            geom_polygon(aes_string(x="long",y="lat",group="group",fill="id"),alpha=.5)+
             facet_wrap(~ud)+
             labs(fill=groupid))
-}
+
 
   # 50% overlap
   BA_o50<-kerneloverlaphr(ud , method="BA", percent=50, conditional=TRUE)
@@ -125,24 +136,35 @@ kernalOverlapBA_p<-function (tracks, tripid="tripID", groupid = "Sex",
 
     # Make SPDF with the random grouping as the ID column
     tracks.spdf <- SpatialPointsDataFrame(coords=cbind(tracks[[lon]],tracks[[lat]]),
-                                                 data=data.frame(id=tracks$groupRan),
-                                                 proj4string = CRS("+proj=longlat +ellps=WGS84
+                                          data=data.frame(id=tracks$groupRan),
+                                          proj4string = CRS("+proj=longlat +ellps=WGS84
                                                             +datum=WGS84 +no_defs"))
     # Project data into laea
     tracks.spdf.t <- spTransform(tracks.spdf,
-                                        CRS(paste("+proj=laea +units=km +lon_0=", colonyLon,
-                                                  " +lat_0=", colonyLat	, sep="")))
+                                 CRS(paste("+proj=laea +units=km +lon_0=", colonyLon,
+                                           " +lat_0=", colonyLat	, sep="")))
 
     # make the kernelUD
     ud1 <- kernelUD(tracks.spdf.t, h = h,grid=ud.grid)
 
     # Plot each if desired (only for diagnostics?)
     if(Plot==T){
+      # make empty df to solve cmd check issue unbound var
+      # uds<-data.frame(long = numeric(0),
+      #                 lat = numeric(0),
+      #                 order = integer(0),
+      #                 hole = logical(0),
+      #                 piece = character(0),
+      #                 id = character(0),
+      #                 group = character(0),
+      #                 ud = character(0))
       uds<-bind_rows(
         mutate(fortify(getverticeshr(ud1, percent=95, standardize=T)), ud="95"),
         mutate(fortify(getverticeshr(ud1, percent=50, standardize=T)), ud="50"))
       head(uds)
-      print(ggplot(data=uds)+geom_polygon(aes(x=long,y=lat,group=group,fill=id),alpha=.5)+facet_wrap(~ud))
+      print(ggplot(data=uds)+
+              geom_polygon(aes_string(x="long",y="lat",group="group",fill="id"),alpha=.5)+
+              facet_wrap(~ud))
     }
 
     # Calculate BA

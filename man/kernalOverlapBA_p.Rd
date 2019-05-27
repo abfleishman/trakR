@@ -6,7 +6,7 @@
 \usage{
 kernalOverlapBA_p(tracks, tripid = "tripID", groupid = "Sex",
   lon = "Longitude", lat = "Latitude", colonyLon = -113.244555,
-  colonyLat = 31.015513, its = 1000, h = 1.4809524, ud.grid,
+  colonyLat = 31.015513, its = 10, h = 1.4809524, ud.grid,
   Plot = F)
 }
 \arguments{

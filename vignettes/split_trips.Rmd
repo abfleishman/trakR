@@ -42,7 +42,7 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
                                     ColonyLong = -169.6760)
 ```
 
-## segment trips
+## Split Trips
 
 The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the data.frame with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
 ```{r make trips}
