@@ -9,8 +9,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Trip segmentation for animal tracking data
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888341.svg)](https://doi.org/10.5281/zenodo.2888341)
-[![Github All Releases](https://img.shields.io/github/downloads/abfleishman/trakR/total.svg)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888341.svg)](https://doi.org/10.5281/zenodo.2888341) [![Github All Releases](https://img.shields.io/github/downloads/abfleishman/trakR/total.svg)]()
+
 Cite as: 
 Fleishman, A.B. and Orben, R.A. 2019. trakR: Basic Animal Tracking Data Analysis Tools, V0.0.5. GitHub repository. <https://github.com/abfleishman/trakR> DOI:10.5281/zenodo.2888341
 
@@ -55,7 +55,7 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
                                     ColonyLong = -169.6760)
 ```
 
-# segment trips
+# Split Trips
 The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
 ```{r make trips}
 
@@ -73,3 +73,25 @@ ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
 
+
+## trip segmentation
+
+Another common task in processing tracking data is to segment a trip into a outbound, middle, and inbound leg.  This can be done tediously by anotating each trip by hand or you can try using the `InOutPoints` function in `trakR`. 
+
+```{r}
+tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
+                          CaptureID="CaptureID",
+                          DateTime="DateTime",
+                          TripID="TripNum",
+                          dist2colony="Dist2Colony",lag=3,
+                          nPointsToSmooth =10,minDist2Col = 10,
+                          Lon = "Longitude",Lat="Latitude",
+                          Plot = T,pdfName = "inout_plots.pdf")
+
+ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
+       aes(Longitude,Latitude,col=factor(TripNum)))+
+  geom_path(aes(lty=INOut),size=1)+
+  scale_linetype_manual(values = c(1,2,3))+
+  facet_wrap(~TripNum)+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
