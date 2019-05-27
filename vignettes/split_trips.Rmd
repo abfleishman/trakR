@@ -57,7 +57,7 @@ head(tracks_w_trips)
 ```
 
 You can see that the track was split into multiple trips
-```{r plot,fig.height=5,fig.asp=1}
+```{r plot,fig.asp=1}
 
 # Plot a bird to check
 ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
@@ -80,7 +80,8 @@ tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
                           Lon = "Longitude",Lat="Latitude",
                           Plot = T,pdfName = "inout_plots.pdf")
 
-ggplot(tracks_w_trips %>% filter(TripNum%in%c(5,7)),aes(Longitude,Latitude,col=factor(TripNum)))+
+ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
+       aes(Longitude,Latitude,col=factor(TripNum)))+
   geom_path(aes(lty=INOut),size=1)+
   scale_linetype_manual(values = c(1,2,3))+
   facet_wrap(~TripNum)+
