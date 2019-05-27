@@ -3,7 +3,7 @@
 #' This functions intention is to partition a track into an inbound and outbound
 #' leg demarkated when the bird first stops moving away from the colony. The
 #' first stopping point is identified by taking the change in dist2col first
-#' dirivative?, smoothing it with a left aligned rolling mean, and rounding to 1
+#' derivative?, smoothing it with a left aligned rolling mean, and rounding to 1
 #' digit.  The first point where the bird is not changing the distance to the
 #' colony is the end of the outbound leg, while the last point where the birds is
 #' not getting close to the colony is the inbound leg.
@@ -25,6 +25,7 @@
 #' @param tracks dataframe with tracking data sorted by ID, tripID, datetime
 #' @param CaptureID column name holding animal ID
 #' @param TripID column name holding Trip ID
+#' @param DateTime column name holding the datetime
 #' @param dist2colony column name holding distances to the colony of each point
 #' @param lag is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated
 #' @param nPointsToSmooth number of points to smooth to determine legs
@@ -40,6 +41,7 @@
 #' @importFrom zoo rollmean
 #' @export
 InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
+                      DateTime = "datetime",
                       dist2colony="dist2colony",lag=1,nPointsToSmooth=10,
                       minDist2Col=5,Plot=F,Lon="lon",Lat="lat",pdfName="inout_plots.pdf"){
   # Create the output vector
@@ -52,7 +54,7 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
 
     # Loop Through trips
     for(j in unique(tracksID[[TripID]])){
-      trackssub<-tracksID[tracksID[[TripID]]==j,] %>% arrange_("datetime")
+      trackssub<-tracksID[tracksID[[TripID]]==j,] %>% arrange_(DateTime)
       trxIdxs<-which(tracks[[CaptureID]]==i&tracks[[TripID]]==j)
       if(nrow(trackssub)==0) {
         warning(paste("TripID",unique(tracksID[[TripID]])[j],"for CaptureID",
@@ -73,7 +75,7 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       zeroIdxs<-which(trackssub$ddist2colonysmooth==0&trackssub[[dist2colony]]>=minDist2Col)
       apexPoint<-which(trackssub[[dist2colony]]==max(trackssub[[dist2colony]],na.rm=T))
 
-      if(length(zeroIdxs)==0|min(zeroIdxs)>apexPoint) zeroIdxs<-apexPoint
+      if(length(zeroIdxs)==0|suppressWarnings(min(zeroIdxs))>apexPoint) zeroIdxs<-apexPoint
       outIdx<-1:min(zeroIdxs[zeroIdxs<=apexPoint])
 
       if(length(zeroIdxs[zeroIdxs>=apexPoint])==0|max(zeroIdxs)<apexPoint) zeroIdxs<-apexPoint
@@ -83,8 +85,8 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       inOutTemp[inIdx]<-"in"
       inOutTemp[is.na(inOutTemp)]<-"mid"
       inOut[trxIdxs]<-inOutTemp
-      if(Plot==T) plot(trackssub[[Lon]],trackssub[[Lat]],col=factor(inOutTemp),main=paste("i: ",i," J:",j))
-      lines(trackssub[[Lon]],trackssub[[Lat]])
+      if(Plot==T){ plot(trackssub[[Lon]],trackssub[[Lat]],col=factor(inOutTemp),main=paste("i: ",i," J:",j))
+      lines(trackssub[[Lon]],trackssub[[Lat]])}
       # plot(trackssub$dist2colony,main=paste("i: ",i," J:",j))
     }
   }
