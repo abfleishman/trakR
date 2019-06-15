@@ -25,7 +25,7 @@ library(lubridate)
 library(argosfilter)
 ```
 
-# Install trakR package (lots of issues but this trip segmentation works currently)
+# Install trakR package 
 ```{r install trakR}
 # install.packages("devtools") # for installing packages from github
 # devtools::install_github("abfleishman/trakR",upgrade = "ask") # install my package
@@ -35,7 +35,8 @@ library(trakR)
 
 # Load tracks 
 This should be one file for all the tracks or create a data.frame with all the tracks.
-The function `MakeTrip` is set up for processing multiple animals at once
+The function `MakeTrip` is set up for processing multiple animals at once, but you 
+can use it one a single track as well, it is just not as elegant.
  
 For this tutorial we will use a single bird in the included `tracks` dataset.
 ```{r load data}
@@ -44,7 +45,7 @@ data("tracks")
 head(tracks)
 ```
 
-The `MakeTrip` function requiers a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run.
+The `MakeTrip` function requires a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run. 
 
 ```{r dist2col}
 library(argosfilter)
@@ -56,7 +57,7 @@ tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks,
 ```
 
 # Split Trips
-The `makeTrip` function finds the points where a animal moves some treshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold and annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
+The `MakeTrip` function finds the points where a animal moves some threshold distance `DistCutOff` away from the colony and the points where the animal returns within that threshold that is at least some number of points long `NumLocCut`.  The function annotates the dataframe with two new column, one indicating those "In" and "Out" points and another with trip numbers.  
 ```{r make trips}
 
 tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
@@ -76,7 +77,24 @@ ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
 
 ## trip segmentation
 
-Another common task in processing tracking data is to segment a trip into a outbound, middle, and inbound leg.  This can be done tediously by anotating each trip by hand or you can try using the `InOutPoints` function in `trakR`. 
+Another common task in processing tracking data is to segment a trip into a outbound, middle, and inbound legs.  This can be done tediously by annotating each trip by hand or you can try using the `InOutPoints` function in `trakR`. This function also relies on having a columns with the distance to the colony. There are also a few more esoteric parameters that take some fiddling to get right.  
+From the function documentation that can be accessed by `?InOutPoints`:
+
+This function's intention is to partition a track into an inbound and outbound leg demarcated when the bird first stops moving away from the colony. The first stopping point is identified by taking the change in dist2col first derivative, smoothing it with a left aligned rolling mean, and rounding to 1 digit. The first point where the bird is not changing the distance to the colony is the end of the outbound leg, while the last point where the birds is not getting close to the colony is the inbound leg.
+
+Trip departure and return segments are identified by calculating delta-d
+, the change in distance from the colony, lagged by `lag` gps points, and smoothed
+by calculating a `nPointsToSmooth` left aligned rolling mean. These values are rounded
+to 1 significant digit. Trips are segmented by assigning points between the
+beginning of a trip and the first point delta-d which equaled zero as the “out” leg
+and the last point delta-d that equaled zero until the final point of the trip as
+the “in” leg. The colony is buffered so that the first and last points delta-d
+can not be within `minDist2Col` km of the island. If there is no point on the trip
+that delta-d reached zero, i.e. the bird continuously moved away from the colony
+until it began to return, the trip is split at the apex point where the bird
+was furthest from the colony. This method effectively finds the first and last
+points that the bird ceases to move away from the colony over a given period the duration of which is dictated by 
+`nPointsToSmooth`*interpoint duration. 
 
 ```{r}
 tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
