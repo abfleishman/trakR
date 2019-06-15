@@ -2,7 +2,7 @@
 % Please edit documentation in R/DepthETOPO.R
 \name{DepthETOPO}
 \alias{DepthETOPO}
-\title{DepthETOPO Compute the depth from Etopo1 is at 1 arc minute resolution.}
+\title{DepthETOPO Compute the depth from ETOPO1 is at 1 arc minute resolution.}
 \usage{
 DepthETOPO(tracks, dataLat = "Latitude", dataLon = "Longitude",
   left = -179, right = -164, top = 60, bottom = 50,
@@ -31,7 +31,10 @@ DepthETOPO(tracks, dataLat = "Latitude", dataLon = "Longitude",
 A vector of elevation/depth in meters from ETOPO1 world bathymatry at a resolution of 1 arc minute
 }
 \description{
-It would be nice to find something higher resolution
+Extract sea floor depth at each point along a track.  The ETOPO1 dataset
+}
+\references{
+Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009. http://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/docs/ETOPO1.pdf
 }
 \author{
 Abram B. Fleishman \email{abram@conservationmetrics.com}
