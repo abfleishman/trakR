@@ -87,3 +87,61 @@ ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
   facet_wrap(~TripNum)+
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
+
+## Extract Depth along a track
+
+Sometimes it is helpful to attach sea floor depth or terrestial elevation to a location or series of locations (track).
+The ETOPO1 dataset can be accessed with the `marmap` package witht he get.NOAA.bathy function.  This is a wrapper around that function that downloads the grid of elevation/depth data from the NOAA servers and then extracts the value for each cell that a point over lays and returns a vector of the same length as the data.
+
+```{r}
+min(tracks_w_trips$Longitude)
+max(tracks_w_trips$Longitude)
+min(tracks_w_trips$Latitude)
+max(tracks_w_trips$Latitude)
+tracks_w_trips$depth<-DepthETOPO(tracks,
+                     dataLat="Latitude",
+                     dataLon="Longitude",
+                     left=min(tracks_w_trips$Longitude),
+                     right= max(tracks_w_trips$Longitude),
+                     top=min(tracks_w_trips$Latitude),
+                     bottom=max(tracks_w_trips$Latitude),resolution = 1, keep=F)
+
+# plot
+ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
+       aes(Longitude,Latitude,col=depth))+
+  geom_point(size=1)+
+  scale_color_viridis_c()+
+  facet_wrap(~TripNum)+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
+
+## Label events
+
+Sometimes it is useful to number events consecutively such as forageing
+events for a seabird.  often times these events have multiple rows per
+event/bout.  This function numbers these evens consecutively by bird and by
+trip nested within bird.
+The function `label_event` is writen just for this purpose.  In this example we will label foraging events (in this case when birds drop below 5 km/h) with a consecutive number. 
+It returns a data.frame with two new columns `event_trip` and `even_bird`
+
+```{r}
+tracks_w_trips$dtime<-InterpointTime(tracks_w_trips,ID = 'CaptureID',DateTime ='DateTime' )
+tracks_w_trips$ddist<-InterpointDist(tracks_w_trips,ID = 'CaptureID',lat = 'Latitude',lon = 'Longitude' )
+tracks_w_trips$ddist<-tracks_w_trips$ddist 
+tracks_w_trips$speed<-Speed(Dist = tracks_w_trips$ddist,Time = tracks_w_trips$dtime)
+head(tracks_w_trips)
+hist(tracks_w_trips$speed,breaks=300)
+tracks_w_trips$foraging<-tracks_w_trips$speed<5&tracks_w_trips$Dist2Col>10
+tracks_w_trips<-label_events(dat=tracks_w_trips[!is.na(tracks_w_trips$foraging),],
+                                                               BirdID = 'CaptureID',
+                                                               TripID = 'TripNum',
+                                                               eventCol = 'foraging')
+head(tracks_w_trips)
+
+ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
+       aes(Longitude,Latitude,col=factor(event_bird)))+
+  geom_point(size=1)+
+  scale_color_viridis_d()+
+  facet_wrap(~TripNum)+
+  theme_classic(base_size = 16)+labs(color="TripNum")
+```
