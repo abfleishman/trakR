@@ -96,6 +96,8 @@ was furthest from the colony. This method effectively finds the first and last
 points that the bird ceases to move away from the colony over a given period the duration of which is dictated by 
 `nPointsToSmooth`*interpoint duration. 
 
+
+
 ```{r trip-spliting}
 tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
                           CaptureID="CaptureID",

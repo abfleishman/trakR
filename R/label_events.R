@@ -13,14 +13,17 @@
 #' @param TripID a unique ID for each trip nested within each bird. I.e. birdA
 #'   has trips 1,2,3; BirdB has trips 1,2,3,4
 #' @param eventCol a column with values indicating the presence of an event.
-#'   Must bein the format 0= no event, 1= event
+#'   Must be in the format 0= no event, 1= event
 #' @return A new data frame with all original data plus two new columns:
 #'   event_bird with numbered events 1:n_vents by bird, and event_trip with
 #'   numbered events 1:n_events per trip
 #'   @importFrom dplyr bind_rows
 #' @export
 
-label_events<-function(dat,BirdID="CaptureID",TripID="TripID",eventCol="forage"){
+label_events<-function(dat,
+                       BirdID="CaptureID",
+                       TripID="TripID",
+                       eventCol="forage"){
 
   Birds<-unique(dat[[BirdID]])
   dat$event_trip<-NA
@@ -35,8 +38,10 @@ label_events<-function(dat,BirdID="CaptureID",TripID="TripID",eventCol="forage")
     endIdx<-cumsum_length[dat_temp_rle$values==1]
 
     startIdx<-c(1,(cumsum_length0+1))[1:(length(cumsum_length0))]
+    if(dat_temp[[eventCol]][nrow(dat_temp)]==1|dat_temp[[eventCol]][1]==0){
+      endIdx<-c(endIdx,max(cumsum_length0))
+    }
     for(k in 1:length(startIdx)){
-
       dat_temp$event_bird[startIdx[k]:endIdx[k]]<-k
     }
     trips<-unique(dat_temp[[TripID]])
@@ -48,8 +53,8 @@ label_events<-function(dat,BirdID="CaptureID",TripID="TripID",eventCol="forage")
       cumsum_length_trip<-cumsum(dat_temp_rle_trip$lengths)
       cumsum_length0_trip<-cumsum_length_trip[dat_temp_rle_trip$values==0]
       endIdx_trip<-cumsum_length_trip[dat_temp_rle_trip$values==1]
-
-      if(dat_temp_trip[[eventCol]][nrow(dat_temp_trip)]==1){
+      dat_temp_trip[[eventCol]][1]
+      if(dat_temp_trip[[eventCol]][nrow(dat_temp_trip)]==1|dat_temp_trip[[eventCol]][1]==0){
         endIdx_trip<-c(endIdx_trip,max(cumsum_length0_trip))
       }
 

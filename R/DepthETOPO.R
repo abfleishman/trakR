@@ -1,6 +1,6 @@
-#' DepthETOPO Compute the depth from Etopo1 is at 1 arc minute resolution.
+#' DepthETOPO Compute the depth from ETOPO1 is at 1 arc minute resolution.
 #'
-#' It would be nice to find something higher resolution
+#' Extract sea floor depth at each point along a track.  Relies on `marmap::getNOAA.bathy` which queries the ETOPO1 database hosted on the NOAA website, given the coordinates of the area of interest and desired resolution. Then extracts the values at each point along the track.
 #'
 #' @author Abram B. Fleishman \email{abram@@conservationmetrics.com}
 #'
@@ -19,6 +19,9 @@
 #' @export
 #' @importFrom marmap getNOAA.bathy as.SpatialGridDataFrame
 #' @importFrom SDMTools extract.data asc.from.sp
+#' @references Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009. http://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/docs/ETOPO1.pdf
+
+
 
 DepthETOPO<-function(tracks,
                      dataLat="Latitude",

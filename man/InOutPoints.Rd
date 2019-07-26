@@ -36,28 +36,7 @@ InOutPoints(tracks = tracks, CaptureID = "CaptureID",
 \item{pdfName}{fullpath to pdf that will be saved (only needed if Plot==T)}
 }
 \description{
-This functions intention is to partition a track into an inbound and outbound
-leg demarkated when the bird first stops moving away from the colony. The
-first stopping point is identified by taking the change in dist2col first
-derivative?, smoothing it with a left aligned rolling mean, and rounding to 1
-digit.  The first point where the bird is not changing the distance to the
-colony is the end of the outbound leg, while the last point where the birds is
-not getting close to the colony is the inbound leg.
-}
-\details{
-METHODS: Trip departure and return segments were identified by calculating delta-d
-, the change in distance from the colony, lagged by lag gps points, and smoothed
-by calculating a 10 point left aligned rolling mean. These values were rounded
-to 1 significant digit. Trips were segmented by assigning points between the
-beginning of a trip and the first point delta-d which equaled zero as the “out” leg
-and the last point delta-d that equaled zero until the final point of the trip as
-the “in” leg. The island was buffered so that the first and last points delta-d
-could not be within 10 km of the island. If there was no point on the trip
-that delta-d reached zero, i.e. the bird continuously moved away from the colony
-until it began to return, the trip was split at the apex point where the bird
-was furthest from the colony. This method effectively finds the first and last
-points that the bird ceases to move away from the colony over a 15-minute
-period.
+This function's intention is to partition a track into an inbound and outbound leg demarcated when the bird first stops moving away from the colony. The first stopping point is identified by taking the change in dist2col first derivative, smoothing it with a left aligned rolling mean, and rounding to 1 digit. The first point where the bird is not changing the distance to the colony is the end of the outbound leg, while the last point where the birds is not getting close to the colony is the inbound leg.
 }
 \author{
 Abram B. Fleishman \email{abram@conservationmetrics.com}
