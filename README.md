@@ -173,7 +173,7 @@ ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
   theme_classic(base_size = 16)+labs(color="TripNum")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](README_files/figure-gfm/trip-spliting-1.png)<!-- -->
 
 ## Trip (foraging location) fidelity
 
@@ -242,7 +242,7 @@ ggplot(fidelity$fidelity_index_trips)+
   theme_minimal()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/fidelity-1.png)<!-- -->
 
 ``` r
 fidelity$fidelity_index_animal
