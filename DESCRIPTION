@@ -1,9 +1,10 @@
 Package: trakR
 Type: Package
 Title: Basic Animal Tracking Data Analysis Tools
-Version: 0.0.6
+Version: 0.0.7
 Authors@R: c(person(given="Abram B.", family="Fleishman", email = "abram@conservationmetrics.com", role = c("cre","aut")),
-    person(given="Rachael A.", family="Orben", email = "rachael.orben@oregonstate.edu.com", role = "aut"))
+    person(given="Rachael A.", family="Orben", email = "rachael.orben@oregonstate.edu", role = "aut"),
+    person(given="Morgan E.", family="Gilmour", email = "morgan.gilmour@bucknell.edu", role = "aut"))
 Description: Basic functions for processing animal tracking data.  These 
     functions were writen and used for my theis or during other collaborations.  
     I believe this collection of functions will be usful for 
@@ -25,7 +26,8 @@ Imports:
   adehabitatHR,
   ggplot2,
   magrittr,
-  zoo
+  zoo,
+  rlang
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
