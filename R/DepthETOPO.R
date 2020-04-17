@@ -44,8 +44,8 @@ DepthETOPO<-function(tracks,
 
   SPData<-as.raster(dat)
 
-  depth<-extract(SPData, cbind(tracks[[dataLon]],
-                               tracks[[dataLat]]))
+  depth<-extract(SPData, y = cbind(tracks[[dataLon]],
+                                           tracks[[dataLat]]))
 
   return(depth)
 }
