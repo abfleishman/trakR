@@ -4,8 +4,13 @@
 \alias{MakeTrip}
 \title{MakeTrip Function to make a TripNum variable}
 \usage{
-MakeTrip(tracks, ID = "File", DistCutOff = 10,
-  Dist2Colony = "Dist2Colony", NumLocCut = 3)
+MakeTrip(
+  tracks,
+  ID = "File",
+  DistCutOff = 10,
+  Dist2Colony = "Dist2Colony",
+  NumLocCut = 3
+)
 }
 \arguments{
 \item{tracks}{data.frame of data that you want to parse into trips}

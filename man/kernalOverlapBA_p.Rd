@@ -4,10 +4,19 @@
 \alias{kernalOverlapBA_p}
 \title{Calculate Bhattacharyya's affinity for two groups of animal tracks}
 \usage{
-kernalOverlapBA_p(tracks, tripid = "tripID", groupid = "Sex",
-  lon = "Longitude", lat = "Latitude", colonyLon = -113.244555,
-  colonyLat = 31.015513, its = 10, h = 1.4809524, ud.grid,
-  Plot = F)
+kernalOverlapBA_p(
+  tracks,
+  tripid = "tripID",
+  groupid = "Sex",
+  lon = "Longitude",
+  lat = "Latitude",
+  colonyLon = -113.244555,
+  colonyLat = 31.015513,
+  its = 10,
+  h = 1.4809524,
+  ud.grid,
+  Plot = F
+)
 }
 \arguments{
 \item{tracks}{a data frame with tracking data}

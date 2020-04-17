@@ -4,8 +4,15 @@
 \alias{gilmour_fidelity}
 \title{Gilmour's Fidelity Index}
 \usage{
-gilmour_fidelity(dat, Longitude, Latitude, animal_id, trip_id,
-  distance2colony, bear2col)
+gilmour_fidelity(
+  dat,
+  Longitude,
+  Latitude,
+  animal_id,
+  trip_id,
+  distance2colony,
+  bear2col
+)
 }
 \arguments{
 \item{dat}{a data frame of tracking data with columns that include possitions

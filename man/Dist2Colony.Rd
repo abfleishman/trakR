@@ -4,8 +4,7 @@
 \alias{Dist2Colony}
 \title{Dist2Colony Calculate the distance of a vector of points (lat,long) to a fixed point}
 \usage{
-Dist2Colony(tracks, dataLat = "lat", dataLon = "lon", ColonyLat,
-  ColonyLong)
+Dist2Colony(tracks, dataLat = "lat", dataLon = "lon", ColonyLat, ColonyLong)
 }
 \arguments{
 \item{tracks}{a dataframe}

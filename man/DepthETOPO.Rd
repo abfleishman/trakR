@@ -4,9 +4,17 @@
 \alias{DepthETOPO}
 \title{DepthETOPO Compute the depth from ETOPO1 is at 1 arc minute resolution.}
 \usage{
-DepthETOPO(tracks, dataLat = "Latitude", dataLon = "Longitude",
-  left = -179, right = -164, top = 60, bottom = 50,
-  resolution = 30, keep = F)
+DepthETOPO(
+  tracks,
+  dataLat = "Latitude",
+  dataLon = "Longitude",
+  left = -179,
+  right = -164,
+  top = 60,
+  bottom = 50,
+  resolution = 30,
+  keep = F
+)
 }
 \arguments{
 \item{tracks}{data.frame of data to be queried for  latand long values}
@@ -29,9 +37,10 @@ DepthETOPO(tracks, dataLat = "Latitude", dataLon = "Longitude",
 }
 \value{
 A vector of elevation/depth in meters from ETOPO1 world bathymatry at a resolution of 1 arc minute
+needs to add :importFrom SDMTools extract.data asc.from.sp
 }
 \description{
-Extract sea floor depth at each point along a track.  The ETOPO1 dataset
+Extract sea floor depth at each point along a track.  Relies on `marmap::getNOAA.bathy` which queries the ETOPO1 database hosted on the NOAA website, given the coordinates of the area of interest and desired resolution. Then extracts the values at each point along the track.
 }
 \references{
 Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009. http://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/docs/ETOPO1.pdf

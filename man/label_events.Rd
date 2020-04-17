@@ -4,8 +4,7 @@
 \alias{label_events}
 \title{Number events (such as foraging events) by bird and trip}
 \usage{
-label_events(dat, BirdID = "CaptureID", TripID = "TripID",
-  eventCol = "forage")
+label_events(dat, BirdID = "CaptureID", TripID = "TripID", eventCol = "forage")
 }
 \arguments{
 \item{dat}{data.frame of with a minimum of three columns with birdID, tripID

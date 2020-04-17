@@ -4,11 +4,20 @@
 \alias{InOutPoints}
 \title{Inbound/Outbound flight leg identification}
 \usage{
-InOutPoints(tracks = tracks, CaptureID = "CaptureID",
-  TripID = "TripID", DateTime = "datetime",
-  dist2colony = "dist2colony", lag = 1, nPointsToSmooth = 10,
-  minDist2Col = 5, Plot = F, Lon = "lon", Lat = "lat",
-  pdfName = "inout_plots.pdf")
+InOutPoints(
+  tracks = tracks,
+  CaptureID = "CaptureID",
+  TripID = "TripID",
+  DateTime = "datetime",
+  dist2colony = "dist2colony",
+  lag = 1,
+  nPointsToSmooth = 10,
+  minDist2Col = 5,
+  Plot = F,
+  Lon = "lon",
+  Lat = "lat",
+  pdfName = "inout_plots.pdf"
+)
 }
 \arguments{
 \item{tracks}{dataframe with tracking data sorted by ID, tripID, datetime}
