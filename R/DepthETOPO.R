@@ -15,10 +15,11 @@
 #' @param keep save a file
 #'
 #' @return A vector of elevation/depth in meters from ETOPO1 world bathymatry at a resolution of 1 arc minute
+#' needs to add :importFrom SDMTools extract.data asc.from.sp
 #'
 #' @export
 #' @importFrom marmap getNOAA.bathy as.SpatialGridDataFrame
-#' @importFrom SDMTools extract.data asc.from.sp
+#'
 #' @references Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009. http://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/docs/ETOPO1.pdf
 
 

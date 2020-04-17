@@ -21,14 +21,13 @@ Imports:
   geosphere,
   marmap,
   sp,
-  SDMTools,
   testthat,
   adehabitatHR,
   ggplot2,
   magrittr,
   zoo,
   rlang
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests: 
     knitr,
     rmarkdown
