@@ -16,11 +16,6 @@ library(ggplot2)
 library(maps)
 library(mapdata)
 library(dplyr)
-```
-
-    ## Warning: package 'dplyr' was built under R version 3.5.2
-
-``` r
 library(stringr)
 library(lubridate)
 library(argosfilter)
@@ -34,6 +29,11 @@ library(argosfilter)
 
 library(trakR)
 ```
+
+    ## Registered S3 methods overwritten by 'adehabitatMA':
+    ##   method                       from
+    ##   print.SpatialPixelsDataFrame sp  
+    ##   print.SpatialPixels          sp
 
 # Load tracks
 
@@ -98,10 +98,10 @@ head(tracks_w_trips)
     ##              DateTime Longitude Latitude CaptureID Dist2Colony    Dist2Col
     ## 1 2015-06-24 03:34:21 -169.6760 56.60329       B53 0.052719955 0.002265022
     ## 2 2015-06-24 03:36:03 -169.6765 56.60260       B53 0.094288021 0.082873349
-    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632033
-    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436610
+    ## 3 2015-06-24 13:39:08 -169.6768 56.60336       B53 0.008751334 0.049632123
+    ## 4 2015-06-24 13:42:05 -169.6768 56.60339       B53 0.006336524 0.049436792
     ## 5 2015-06-24 13:45:08 -169.6768 56.60345       B53 0.007025605 0.049489926
-    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277755
+    ## 6 2015-06-24 13:48:08 -169.6768 56.60343       B53 0.003676799 0.051277667
     ##   ColonyMovement TripNum
     ## 1           <NA>       0
     ## 2           <NA>       0
@@ -252,3 +252,30 @@ fidelity$fidelity_index_animal
     ##   animal_id      FI FI_samplesize
     ##   <fct>       <dbl>         <int>
     ## 1 B53       0.00192            36
+
+### attach depth info
+
+``` r
+tracks_w_trips$depth<-DepthETOPO(tracks = tracks_w_trips,
+              dataLat = "Latitude",
+              dataLon = "Longitude",
+              left = min(tracks_w_trips$Longitude)-1,
+              right= max(tracks_w_trips$Longitude)+1,
+              bottom= min(tracks_w_trips$Latitude)-1,
+              top= max(tracks_w_trips$Latitude)+1,
+              resolution=30,
+              keep=F)
+```
+
+    ## Querying NOAA database ...
+
+    ## This may take seconds to minutes, depending on grid size
+
+    ## Building bathy matrix ...
+
+``` r
+ggplot(tracks_w_trips %>% filter(TripNum!=0),aes(x=DateTime,y=depth, col=factor(TripNum)))+
+  geom_path()+theme_minimal()
+```
+
+![](README_files/figure-gfm/depth-1.png)<!-- -->

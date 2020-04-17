@@ -164,3 +164,20 @@ ggplot(fidelity$fidelity_index_trips)+
 
 fidelity$fidelity_index_animal
 ```
+
+### attach depth info
+```{r depth}
+
+tracks_w_trips$depth<-DepthETOPO(tracks = tracks_w_trips,
+              dataLat = "Latitude",
+              dataLon = "Longitude",
+              left = min(tracks_w_trips$Longitude)-1,
+              right= max(tracks_w_trips$Longitude)+1,
+              bottom= min(tracks_w_trips$Latitude)-1,
+              top= max(tracks_w_trips$Latitude)+1,
+              resolution=30,
+              keep=F)
+
+ggplot(tracks_w_trips %>% filter(TripNum!=0),aes(x=DateTime,y=depth, col=factor(TripNum)))+
+  geom_path()+theme_minimal()
+```
