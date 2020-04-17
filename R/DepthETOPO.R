@@ -18,8 +18,8 @@
 #' needs to add :importFrom SDMTools extract.data asc.from.sp
 #'
 #' @export
-#' @importFrom marmap getNOAA.bathy as.SpatialGridDataFrame
-#'
+#' @importFrom marmap getNOAA.bathy as.raster
+#' @importFrom raster extract
 #' @references Amante, C. and B. W. Eakins, ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24, 19 pp, March 2009. http://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/docs/ETOPO1.pdf
 
 
@@ -27,18 +27,25 @@
 DepthETOPO<-function(tracks,
                      dataLat="Latitude",
                      dataLon="Longitude",
-                     left=-179,right= -164,top=60,bottom=50,resolution = 30, keep=F){
+                     left=-179,
+                     right= -164,
+                     top=60,
+                     bottom=50,
+                     resolution = 30,
+                     keep=F){
 
   # Get bathymetric data ETOPO2
-  dat <- getNOAA.bathy(lon1 = right ,lon2 = left ,
-                               lat1 = bottom,lat2 = top ,
-                               resolution = resolution, keep=keep)
+  dat <- getNOAA.bathy(lon1 = right ,
+                       lon2 = left ,
+                       lat1 = bottom,
+                       lat2 = top ,
+                       resolution = resolution,
+                       keep=keep)
 
-  SPData<-as.SpatialGridDataFrame(dat)
+  SPData<-as.raster(dat)
 
-  depth<-extract.data(cbind(tracks[[dataLon]],
-                                      tracks[[dataLat]]),
-                                asc.from.sp(SPData))
+  depth<-extract(SPData, cbind(tracks[[dataLon]],
+                               tracks[[dataLat]]))
+
   return(depth)
 }
-
