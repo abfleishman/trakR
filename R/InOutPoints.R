@@ -51,8 +51,11 @@ InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
       trackssub<-tracksID[tracksID[[TripID]]==j,] %>% arrange(DateTime)
       trxIdxs<-which(tracks[[CaptureID]]==i&tracks[[TripID]]==j)
       if(nrow(trackssub)<=lag) {
-        warning(paste("TripID",unique(tracksID[[TripID]])[j],"for CaptureID",
-                      unique(tracks[[CaptureID]])[i])," skipped because it has less rows than your lag.")
+        warning(paste("TripID",unique(tracksID[[TripID]])[unique(tracksID[[TripID]])==j],
+                      "for CaptureID",
+                      unique(tracks[[CaptureID]])[ unique(tracks[[CaptureID]])==i]),
+                " skipped because it has less rows than your lag.")
+        inOut[trxIdxs]<-NA
         next() #skip if empty
       }
 
