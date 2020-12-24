@@ -3,14 +3,14 @@ Basic Trip Segmentation
 
 ## Trip segmentation for animal tracking data
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2888340.svg)](https://doi.org/10.5281/zenodo.2888340)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4391403.svg)](https://doi.org/10.5281/zenodo.4391403)
 ![GitHub tag (latest
 SemVer)](https://img.shields.io/github/tag/abfleishman/trakR.svg?color=blue&label=Version)
 
 Cite as: Fleishman, A.B., Orben, R.A., and Gilmour, M. E. 2019. trakR:
 Basic Animal Tracking Data Analysis Tools. Version 0.0.9. GitHub
 repository. <https://github.com/abfleishman/trakR>
-<DOI:10.5281/zenodo.2888340>
+<DOI:10.5281/zenodo.4391403>
 
 ``` r
 library(ggplot2)
@@ -165,15 +165,7 @@ tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
                           nPointsToSmooth =10,minDist2Col = 10,
                           Lon = "Longitude",Lat="Latitude",
                           Plot = T,pdfName = "inout_plots.pdf")
-```
 
-    ## Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
-    ## Please use `arrange()` instead.
-    ## See vignette('programming') for more help
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_warnings()` to see where this warning was generated.
-
-``` r
 ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
        aes(Longitude,Latitude,col=factor(TripNum)))+
   geom_path(aes(lty=INOut),size=1)+
