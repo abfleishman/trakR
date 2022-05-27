@@ -121,10 +121,14 @@ head(tracks_w_trips)
 
 ``` r
 # Plot a bird to check
-ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
+ggplot(tracks_w_trips,
+       aes(Longitude,
+           Latitude,
+           col=factor(TripNum)))+
   geom_path(size=.7)+
   geom_point(data=tracks_w_trips[tracks_w_trips$ColonyMovement%in%c("Out","In"),])+
-  theme_classic(base_size = 16)+labs(color="TripNum")
+  theme_classic(base_size = 16)+
+  labs(color="TripNum")
 ```
 
 ![](README_files/figure-gfm/make%20trips-1.png)<!-- -->
@@ -166,20 +170,27 @@ is dictated by `nPointsToSmooth`\*interpoint duration.
 
 ``` r
 tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
-                          CaptureID="CaptureID",
-                          DateTime="DateTime",
-                          TripID="TripNum",
-                          dist2colony="Dist2Colony",lag=3,
-                          nPointsToSmooth =10,minDist2Col = 10,
-                          Lon = "Longitude",Lat="Latitude",
-                          Plot = T,pdfName = "inout_plots.pdf")
+                                  CaptureID="CaptureID",
+                                  DateTime="DateTime",
+                                  TripID="TripNum",
+                                  dist2colony="Dist2Colony",
+                                  lag=3,
+                                  nPointsToSmooth =10,
+                                  minDist2Col = 10,
+                                  Lon = "Longitude",
+                                  Lat="Latitude",
+                                  Plot = T,
+                                  pdfName = "inout_plots.pdf")
 
 ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
-       aes(Longitude,Latitude,col=factor(TripNum)))+
+       aes(Longitude,
+           Latitude,
+           col=factor(TripNum)))+
   geom_path(aes(lty=INOut),size=1)+
   scale_linetype_manual(values = c(1,2,3))+
   facet_wrap(~TripNum)+
-  theme_classic(base_size = 16)+labs(color="TripNum")
+  theme_classic(base_size = 16)+
+  labs(color="TripNum")
 ```
 
 ![](README_files/figure-gfm/trip-spliting-1.png)<!-- -->
@@ -212,7 +223,11 @@ Shaffer et al. 2017. Movement Ecology 5:27
 # add a colony site name and join on inf0 about that site.  this is set up for
 # having multiple capture sites in a single dataframe
 tracks_w_trips$site<-"Village"
-capture_sites<-data.frame(site="Village",colony_lon=-169.6760,colony_lat= 56.60329,stringsAsFactors = F)
+
+capture_sites<-data.frame(site="Village",
+                          colony_lon=-169.6760,
+                          colony_lat= 56.60329,
+                          stringsAsFactors = F)
 
 # join on the capture sites and calculate the bearing from each point to the colony
 library(geosphere)
@@ -233,7 +248,17 @@ index per birds with the total N trip combinations used to calculate the
 mean.
 
 ``` r
-fidelity<-trakR::gilmour_fidelity(dat = tracks_w_trips,Longitude = "Longitude",Latitude = "Latitude",animal_id = "CaptureID",trip_id = "TripNum",distance2colony = "Dist2Colony",bear2col = "bear2col")
+# remove "trips" with TripNum==0 because these are actually times when the bird was at the colony
+tracks_with_trips_fidelity<-tracks_w_trips %>% filter(TripNum!=0)
+
+# run fidelity
+fidelity<-trakR::gilmour_fidelity(dat = tracks_with_trips_fidelity,
+                                  Longitude = "Longitude",
+                                  Latitude = "Latitude",
+                                  animal_id = "CaptureID",
+                                  trip_id = "TripNum",
+                                  distance2colony = "Dist2Colony",
+                                  bear2col = "bear2col")
 
 # rose plot of fidelity index per trip combo (this is just a single bird)
 ggplot(fidelity$fidelity_index_trips)+
@@ -251,20 +276,20 @@ fidelity$fidelity_index_animal
     ## # A tibble: 1 x 3
     ##   animal_id      FI FI_samplesize
     ##   <chr>       <dbl>         <int>
-    ## 1 B53       0.00192            36
+    ## 1 B53       -0.0178            28
 
-### attach depth info
+### Attach depth info
 
 ``` r
 tracks_w_trips$depth<-DepthETOPO(tracks = tracks_w_trips,
-              dataLat = "Latitude",
-              dataLon = "Longitude",
-              left = min(tracks_w_trips$Longitude)-1,
-              right= max(tracks_w_trips$Longitude)+1,
-              bottom= min(tracks_w_trips$Latitude)-1,
-              top= max(tracks_w_trips$Latitude)+1,
-              resolution=30,
-              keep=F)
+                                 dataLat = "Latitude",
+                                 dataLon = "Longitude",
+                                 left = min(tracks_w_trips$Longitude)-1,
+                                 right= max(tracks_w_trips$Longitude)+1,
+                                 bottom= min(tracks_w_trips$Latitude)-1,
+                                 top= max(tracks_w_trips$Latitude)+1,
+                                 resolution=30,
+                                 keep=F)
 ```
 
     ## Querying NOAA database ...
@@ -274,8 +299,11 @@ tracks_w_trips$depth<-DepthETOPO(tracks = tracks_w_trips,
     ## Building bathy matrix ...
 
 ``` r
-ggplot(tracks_w_trips %>% filter(TripNum!=0),aes(x=DateTime,y=depth, col=factor(TripNum)))+
-  geom_path()+theme_minimal()
+ggplot(tracks_w_trips %>% 
+         filter(TripNum!=0),
+       aes(x=DateTime,y=depth, col=factor(TripNum)))+
+  geom_path()+
+  theme_minimal()
 ```
 
 ![](README_files/figure-gfm/depth-1.png)<!-- -->

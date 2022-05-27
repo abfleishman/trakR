@@ -37,7 +37,7 @@ library(trakR)
 This should be one file for all the tracks or create a data.frame with all the tracks.
 The function `MakeTrip` is set up for processing multiple animals at once, but you 
 can use it one a single track as well, it is just not as elegant.
- 
+
 For this tutorial we will use a single bird in the included `tracks` dataset.
 ```{r load data}
 data("tracks")
@@ -67,10 +67,14 @@ tracks_w_trips<-trakR::MakeTrip(tracks = tracks,
 head(tracks_w_trips)
 
 # Plot a bird to check
-ggplot(tracks_w_trips,aes(Longitude,Latitude,col=factor(TripNum)))+
+ggplot(tracks_w_trips,
+       aes(Longitude,
+           Latitude,
+           col=factor(TripNum)))+
   geom_path(size=.7)+
   geom_point(data=tracks_w_trips[tracks_w_trips$ColonyMovement%in%c("Out","In"),])+
-  theme_classic(base_size = 16)+labs(color="TripNum")
+  theme_classic(base_size = 16)+
+  labs(color="TripNum")
 ```
 
 
@@ -99,20 +103,27 @@ points that the bird ceases to move away from the colony over a given period the
 
 ```{r trip-spliting}
 tracks_w_trips$INOut<-InOutPoints(tracks=tracks_w_trips,
-                          CaptureID="CaptureID",
-                          DateTime="DateTime",
-                          TripID="TripNum",
-                          dist2colony="Dist2Colony",lag=3,
-                          nPointsToSmooth =10,minDist2Col = 10,
-                          Lon = "Longitude",Lat="Latitude",
-                          Plot = T,pdfName = "inout_plots.pdf")
+                                  CaptureID="CaptureID",
+                                  DateTime="DateTime",
+                                  TripID="TripNum",
+                                  dist2colony="Dist2Colony",
+                                  lag=3,
+                                  nPointsToSmooth =10,
+                                  minDist2Col = 10,
+                                  Lon = "Longitude",
+                                  Lat="Latitude",
+                                  Plot = T,
+                                  pdfName = "inout_plots.pdf")
 
 ggplot(tracks_w_trips[tracks_w_trips$TripNum%in%c(5,7),],
-       aes(Longitude,Latitude,col=factor(TripNum)))+
+       aes(Longitude,
+           Latitude,
+           col=factor(TripNum)))+
   geom_path(aes(lty=INOut),size=1)+
   scale_linetype_manual(values = c(1,2,3))+
   facet_wrap(~TripNum)+
-  theme_classic(base_size = 16)+labs(color="TripNum")
+  theme_classic(base_size = 16)+
+  labs(color="TripNum")
 ```
 
 
@@ -131,14 +142,18 @@ conditions. Ecosphere 9(7):e02301. https://doi.org/10.1002/ecs2.2301 (open
 access)
 
 The equations used here  are modified from:
- - Willis-Norton et al. 2015. Deep-Sea Research Part II: Topical Studies in Oceanography 113:260-267
- - Hazen et al. 2016. Journal of Applied Ecology 54:1415-1428, and
- - Shaffer et al. 2017. Movement Ecology 5:27 https://doi.org/10.1186/s40462-017-0118-9.
+- Willis-Norton et al. 2015. Deep-Sea Research Part II: Topical Studies in Oceanography 113:260-267
+- Hazen et al. 2016. Journal of Applied Ecology 54:1415-1428, and
+- Shaffer et al. 2017. Movement Ecology 5:27 https://doi.org/10.1186/s40462-017-0118-9.
 ```{r add-bear}
 # add a colony site name and join on inf0 about that site.  this is set up for
 # having multiple capture sites in a single dataframe
 tracks_w_trips$site<-"Village"
-capture_sites<-data.frame(site="Village",colony_lon=-169.6760,colony_lat= 56.60329,stringsAsFactors = F)
+
+capture_sites<-data.frame(site="Village",
+                          colony_lon=-169.6760,
+                          colony_lat= 56.60329,
+                          stringsAsFactors = F)
 
 # join on the capture sites and calculate the bearing from each point to the colony
 library(geosphere)
@@ -153,7 +168,17 @@ tracks_w_trips<-tracks_w_trips %>%
 This returns a list with two dataframes. one with all the data used to calculate the index and one row per combination of trips for each animal.  This dataframe also has the fidelity index (FI colomn) for each pair of trips.  The second data.frame i the list has a mean fidelity index per birds with the total N trip combinations used to calculate the mean.  
 
 ```{r fidelity}
-fidelity<-trakR::gilmour_fidelity(dat = tracks_w_trips,Longitude = "Longitude",Latitude = "Latitude",animal_id = "CaptureID",trip_id = "TripNum",distance2colony = "Dist2Colony",bear2col = "bear2col")
+# remove "trips" with TripNum==0 because these are actually times when the bird was at the colony
+tracks_with_trips_fidelity<-tracks_w_trips %>% filter(TripNum!=0)
+
+# run fidelity
+fidelity<-trakR::gilmour_fidelity(dat = tracks_with_trips_fidelity,
+                                  Longitude = "Longitude",
+                                  Latitude = "Latitude",
+                                  animal_id = "CaptureID",
+                                  trip_id = "TripNum",
+                                  distance2colony = "Dist2Colony",
+                                  bear2col = "bear2col")
 
 # rose plot of fidelity index per trip combo (this is just a single bird)
 ggplot(fidelity$fidelity_index_trips)+
@@ -164,19 +189,22 @@ ggplot(fidelity$fidelity_index_trips)+
 fidelity$fidelity_index_animal
 ```
 
-### attach depth info
+### Attach depth info
 ```{r depth}
 
 tracks_w_trips$depth<-DepthETOPO(tracks = tracks_w_trips,
-              dataLat = "Latitude",
-              dataLon = "Longitude",
-              left = min(tracks_w_trips$Longitude)-1,
-              right= max(tracks_w_trips$Longitude)+1,
-              bottom= min(tracks_w_trips$Latitude)-1,
-              top= max(tracks_w_trips$Latitude)+1,
-              resolution=30,
-              keep=F)
+                                 dataLat = "Latitude",
+                                 dataLon = "Longitude",
+                                 left = min(tracks_w_trips$Longitude)-1,
+                                 right= max(tracks_w_trips$Longitude)+1,
+                                 bottom= min(tracks_w_trips$Latitude)-1,
+                                 top= max(tracks_w_trips$Latitude)+1,
+                                 resolution=30,
+                                 keep=F)
 
-ggplot(tracks_w_trips %>% filter(TripNum!=0),aes(x=DateTime,y=depth, col=factor(TripNum)))+
-  geom_path()+theme_minimal()
+ggplot(tracks_w_trips %>% 
+         filter(TripNum!=0),
+       aes(x=DateTime,y=depth, col=factor(TripNum)))+
+  geom_path()+
+  theme_minimal()
 ```
