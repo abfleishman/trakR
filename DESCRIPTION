@@ -1,7 +1,7 @@
 Package: trakR
 Type: Package
 Title: Basic Animal Tracking Data Analysis Tools
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: c(person(given="Abram B.", family="Fleishman", email = "abram@conservationmetrics.com", role = c("cre","aut")),
     person(given="Rachael A.", family="Orben", email = "rachael.orben@oregonstate.edu", role = "aut"),
     person(given="Morgan E.", family="Gilmour", email = "morgan.gilmour@bucknell.edu", role = "aut"))
@@ -17,7 +17,6 @@ LazyData: true
 Imports:
   dplyr,
   purrr,
-  argosfilter,
   geosphere,
   marmap,
   sp,
@@ -28,7 +27,7 @@ Imports:
   magrittr,
   zoo,
   rlang
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: 
     knitr,
     rmarkdown

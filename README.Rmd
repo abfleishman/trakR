@@ -23,7 +23,6 @@ library(mapdata)
 library(dplyr)
 library(stringr)
 library(lubridate)
-library(argosfilter)
 ```
 
 # Install trakR package 
@@ -49,7 +48,6 @@ head(tracks)
 The `MakeTrip` function requires a column with distances to the colony for each point.  The `Dist2Colony` function will calculate these distances. It requires the `argosfilter` package to run. 
 
 ```{r dist2col}
-library(argosfilter)
 tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
                                     dataLat = "Latitude",
                                     dataLon = "Longitude",

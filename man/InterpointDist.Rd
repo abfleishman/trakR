@@ -5,7 +5,7 @@
 \title{InterpointDist Calculate the Distance between points on a track for each bird
 Vector of distances between points}
 \usage{
-InterpointDist(tracks, ID = "CaptureNum", lat = "Latitude", lon = "Longitude")
+InterpointDist(tracks, ID = "CaptureID", lat = "Latitude", lon = "Longitude")
 }
 \arguments{
 \item{tracks}{data.frame of data to be queried for  lat and long values}

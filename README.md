@@ -16,10 +16,19 @@ repository. <https://github.com/abfleishman/trakR>
 library(ggplot2)
 library(maps)
 library(mapdata)
+```
+
+    ## Warning: package 'mapdata' was built under R version 4.1.3
+
+``` r
 library(dplyr)
+```
+
+    ## Warning: package 'dplyr' was built under R version 4.1.3
+
+``` r
 library(stringr)
 library(lubridate)
-library(argosfilter)
 ```
 
 # Install trakR package
@@ -65,7 +74,6 @@ for each point. The `Dist2Colony` function will calculate these
 distances. It requires the `argosfilter` package to run.
 
 ``` r
-library(argosfilter)
 tracks$Dist2Col<-trakR::Dist2Colony(tracks = tracks, 
                                     dataLat = "Latitude",
                                     dataLon = "Longitude",
@@ -208,16 +216,7 @@ capture_sites<-data.frame(site="Village",colony_lon=-169.6760,colony_lat= 56.603
 
 # join on the capture sites and calculate the bearing from each point to the colony
 library(geosphere)
-```
 
-    ## 
-    ## Attaching package: 'geosphere'
-
-    ## The following object is masked from 'package:argosfilter':
-    ## 
-    ##     bearing
-
-``` r
 tracks_w_trips<-tracks_w_trips %>%
   left_join(capture_sites,by="site") %>%
   mutate(bear2col=geosphere::bearing(p1 = cbind(colony_lon,colony_lat),

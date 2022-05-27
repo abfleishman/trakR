@@ -11,7 +11,6 @@
 #' @param ColonyLat a latitude value of length = 1
 #' @return a vector of distances from adjacent points in kilometers
 #' @export
-#' @importFrom argosfilter distance
 
 Dist2Colony<-function(tracks,dataLat="lat",
                       dataLon="lon",
