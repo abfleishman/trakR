@@ -15,14 +15,14 @@
 #'  Hazen et al. 2016. Journal of Applied Ecology 54:1415-1428, and
 #'  Shaffer et al. 2017. Movement Ecology 5:27 https://doi.org/10.1186/s40462-017-0118-9.
 #'
-#' @param dat a data frame of tracking data with columns that include possitions
+#' @param dat a data frame of tracking data with columns that include positions
 #'   (longitude/Latitude, Easting/Northing,etc), an animal ID, unique trip IDs
-#'   (unique to each animal/trip combo), a column wiht a distance to the colony,
+#'   (unique to each animal/trip combo), a column with a distance to the colony,
 #'   and a column with a bearing from each point to the colony.
 #' @param Longitude quoted column name for location in the x direction.  can be
-#'   longitude or easting or any other x coordiant
+#'   longitude or easting or any other x coordinator
 #' @param Latitude quoted column name for location in the y direction.  can be
-#'   latitude or northing or any other y coordiant
+#'   latitude or northing or any other y coordinator
 #' @param animal_id quoted column name of a unique ID field for each animal
 #' @param trip_id quoted column name of a unique ID field for each animal/trip
 #'   (can be a combo of animalID and a trip number for that animal)
@@ -43,6 +43,7 @@
 gilmour_fidelity<-function(dat, Longitude, Latitude, animal_id,
                            trip_id, distance2colony, bear2col){
   fed<-dat %>%
+    # filter(!!sym(trip_id)!="0") %>% # TODO: remove trip "0" from trips. see #10 on github.
     group_by(!!sym(animal_id),!!sym(trip_id)) %>%
     # filter the max distance to colony for each animal trip
     filter(!!sym(distance2colony)==max(!!sym(distance2colony),na.rm=T)) %>%
