@@ -3,14 +3,14 @@ Basic Trip Segmentation
 
 ## Trip segmentation for animal tracking data
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4391403.svg)](https://doi.org/10.5281/zenodo.4391403)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6588612.svg)](https://doi.org/10.5281/zenodo.6588612)
 ![GitHub tag (latest
 SemVer)](https://img.shields.io/github/tag/abfleishman/trakR.svg?color=blue&label=Version)
 
-Cite as: Fleishman, A.B., Orben, R.A., and Gilmour, M. E. 2019. trakR:
-Basic Animal Tracking Data Analysis Tools. Version 0.0.9. GitHub
+Cite as: Fleishman, A.B., Orben, R.A., and Gilmour, M. E. 2022. trakR:
+Basic Animal Tracking Data Analysis Tools. Version 0.0.10. GitHub
 repository. <https://github.com/abfleishman/trakR>
-<DOI:10.5281/zenodo.4391403>
+<DOI:10.5281/zenodo.6588612>
 
 ``` r
 library(ggplot2)
