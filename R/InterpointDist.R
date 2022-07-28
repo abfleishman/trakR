@@ -56,14 +56,13 @@ distanceTrack <- function(lat, lon){
 #'
 #' @param lat1 latitude of first point
 #' @param lat2 longtitude of first point
-#' @param lon1 latitude of second point
 #' @param lon2 lonitude of second point
 #'
 #' @return
 #' @export
 #'
 distance <-  function(lat1, lat2, lon1, lon2){
-  if (lat1==lat2 & lon1==lon2) d<-0 else {
+  if (lat1==lat2 & lon1==lon2) dd<-0 else {
     rlat1=radian(lat1)
     rlat2=radian(lat2)
     rlon=radian(lon2-lon1)
