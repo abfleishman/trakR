@@ -26,8 +26,7 @@ InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
   for(i in 1:length(Birds)) {
 
     Data<-tracks[tracks[[ID]] == Birds[i],]
-    # assert that it is sorted by time
-    Data<-arrange(Data,DateTime)
+
     Data$PointDur <- NA
     # force difftime in secs
     Data$PointDur <- as.numeric(difftime(time1 =  lead(Data[[DateTime]]),
