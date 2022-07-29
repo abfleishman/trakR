@@ -17,7 +17,11 @@
 
 InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
 
-    # Initialize a vector where the data will be dumped, for time differences.
+  tracks_sorted<-tracks %>% arrange(!!ID,!!DateTime)
+  if(!all(tracks$Timestamp==tracks_sorted$Timestamp  ){
+    stop("Dataframe not sorted by ID and datetime. To accurately calculate interpoint time you must sort your data first!")
+  }
+  # Initialize a vector where the data will be dumped, for time differences.
   dataOut <- NULL
   Birds <- unique(tracks[[ID]])
 
