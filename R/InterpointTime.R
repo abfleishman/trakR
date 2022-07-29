@@ -17,7 +17,7 @@
 
 InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
 
-    # Initialize a vector wehere the data will be dumped, for time differences.
+    # Initialize a vector where the data will be dumped, for time differences.
   dataOut <- NULL
   Birds <- unique(tracks[[ID]])
 
@@ -26,8 +26,10 @@ InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
   for(i in 1:length(Birds)) {
 
     Data<-tracks[tracks[[ID]] == Birds[i],]
+    # assert that it is sorted by time
     Data<-arrange(Data,DateTime)
     Data$PointDur <- NA
+    # force difftime in secs
     Data$PointDur <- as.numeric(difftime(time1 =  Data[[DateTime]],
                                          time2 = lead(Data[[DateTime]]),
                                          units = "secs"))
