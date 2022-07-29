@@ -7,7 +7,7 @@
 #' @param ID quoted name of column in data that is and ID field
 #' @param DateTime quoted name of column in data that has DateTime values in the
 #'   format YYYY-mm-dd HH:MM:SS
-#' @importFrom dplyr lead arrange
+#' @importFrom dplyr lead
 #' @return A vector of times differences in seconds between adjacent points in
 #'   an animal track
 #' @export
@@ -16,11 +16,13 @@
 #############################################################################################
 
 InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
-
-  tracks_sorted<-tracks %>% arrange(!!ID,!!DateTime)
-  if(!all(tracks$Timestamp==tracks_sorted$Timestamp  ){
-    stop("Dataframe not sorted by ID and datetime. To accurately calculate interpoint time you must sort your data first!")
-  }
+  ## this should be a test for if the df is sorted correctly but it is not
+  ## working and I do not care enough right now to figure it out
+  # tracks_sorted<-tracks %>% arrange(ID,DateTime)
+  #
+  # if(!all(tracks$Timestamp==tracks_sorted$Timestamp  )){
+  #   stop("Dataframe not sorted by ID and datetime. To accurately calculate interpoint time you must sort your data first!")
+  # }
   # Initialize a vector where the data will be dumped, for time differences.
   dataOut <- NULL
   Birds <- unique(tracks[[ID]])
