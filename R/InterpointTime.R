@@ -30,8 +30,8 @@ InterpointTime<-function(tracks, ID="File", DateTime="DateTime"){
     Data<-arrange(Data,DateTime)
     Data$PointDur <- NA
     # force difftime in secs
-    Data$PointDur <- as.numeric(difftime(time1 =  Data[[DateTime]],
-                                         time2 = lead(Data[[DateTime]]),
+    Data$PointDur <- as.numeric(difftime(time1 =  lead(Data[[DateTime]]),
+                                         time2 = Data[[DateTime]],
                                          units = "secs"))
 
     dataOut<-c(dataOut,Data$PointDur)
