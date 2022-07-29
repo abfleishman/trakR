@@ -1,6 +1,12 @@
 #' Inbound/Outbound flight leg identification
 #'
-#' This function's intention is to partition a track into an inbound and outbound leg demarcated when the bird first stops moving away from the colony. The first stopping point is identified by taking the change in dist2col first derivative, smoothing it with a left aligned rolling mean, and rounding to 1 digit. The first point where the bird is not changing the distance to the colony is the end of the outbound leg, while the last point where the birds is not getting close to the colony is the inbound leg.
+#' This function's intention is to partition a track into an inbound and
+#' outbound leg demarcated when the bird first stops moving away from the
+#' colony. The first stopping point is identified by taking the change in
+#' dist2col first derivative, smoothing it with a left aligned rolling mean, and
+#' rounding to 1 digit. The first point where the bird is not changing the
+#' distance to the colony is the end of the outbound leg, while the last point
+#' where the birds is not getting close to the colony is the inbound leg.
 #'
 # METHODS: Trip departure and return segments are identified by calculating delta-d
 # , the change in distance from the colony, lagged by lag gps points, and smoothed
@@ -21,10 +27,13 @@
 #' @param TripID column name holding Trip ID
 #' @param DateTime column name holding the datetime
 #' @param dist2colony column name holding distances to the colony of each point
-#' @param lag is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated
+#' @param lag is the number of points to skip to caculate the change in
+#'   distance. e.g. if lag=3, the diff between i and i-3 will be calculated
 #' @param nPointsToSmooth number of points to smooth to determine legs
-#' @param minDist2Col buffer in km around colony that will removed to avoid false out/in leg identification
-#' @param Plot True/False whether to plot each trip (good for figuring out the right parameters)
+#' @param minDist2Col buffer in km around colony that will removed to avoid
+#'   false out/in leg identification
+#' @param Plot True/False whether to plot each trip (good for figuring out the
+#'   right parameters)
 #' @param Lon column name holding Longitude (x-coord) (only needed if Plot==T)
 #' @param Lat column name holding Latitude (y coord) (only needed if Plot==T)
 #' @param pdfName fullpath to pdf that will be saved (only needed if Plot==T)
@@ -37,7 +46,8 @@
 InOutPoints<-function(tracks=tracks,CaptureID="CaptureID",TripID="TripID",
                       DateTime = "datetime",
                       dist2colony="dist2colony",lag=1,nPointsToSmooth=10,
-                      minDist2Col=5,Plot=F,Lon="lon",Lat="lat",pdfName="inout_plots.pdf"){
+                      minDist2Col=5,Plot=F,Lon="lon",Lat="lat",
+                      pdfName="inout_plots.pdf"){
   # Create the output vector
   inOut<-character(length = nrow(tracks))
   tracks$ddist2colonysmooth<-NA
