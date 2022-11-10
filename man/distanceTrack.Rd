@@ -11,9 +11,6 @@ distanceTrack(lat, lon)
 
 \item{lon}{vector of longitudes}
 }
-\value{
-
-}
 \description{
 distanceTrack (from argosfilter)
 }

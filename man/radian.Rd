@@ -9,9 +9,6 @@ radian(degree)
 \arguments{
 \item{degree}{degrees}
 }
-\value{
-
-}
 \description{
 degree to radian
 }

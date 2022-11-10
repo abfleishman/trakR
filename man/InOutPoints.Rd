@@ -30,13 +30,16 @@ InOutPoints(
 
 \item{dist2colony}{column name holding distances to the colony of each point}
 
-\item{lag}{is the number of points to skip to caculate the change in distance. e.g. if lag=3, the diff between i and i-3 will be calculated}
+\item{lag}{is the number of points to skip to caculate the change in
+distance. e.g. if lag=3, the diff between i and i-3 will be calculated}
 
 \item{nPointsToSmooth}{number of points to smooth to determine legs}
 
-\item{minDist2Col}{buffer in km around colony that will removed to avoid false out/in leg identification}
+\item{minDist2Col}{buffer in km around colony that will removed to avoid
+false out/in leg identification}
 
-\item{Plot}{True/False whether to plot each trip (good for figuring out the right parameters)}
+\item{Plot}{True/False whether to plot each trip (good for figuring out the
+right parameters)}
 
 \item{Lon}{column name holding Longitude (x-coord) (only needed if Plot==T)}
 
@@ -45,7 +48,13 @@ InOutPoints(
 \item{pdfName}{fullpath to pdf that will be saved (only needed if Plot==T)}
 }
 \description{
-This function's intention is to partition a track into an inbound and outbound leg demarcated when the bird first stops moving away from the colony. The first stopping point is identified by taking the change in dist2col first derivative, smoothing it with a left aligned rolling mean, and rounding to 1 digit. The first point where the bird is not changing the distance to the colony is the end of the outbound leg, while the last point where the birds is not getting close to the colony is the inbound leg.
+This function's intention is to partition a track into an inbound and
+outbound leg demarcated when the bird first stops moving away from the
+colony. The first stopping point is identified by taking the change in
+dist2col first derivative, smoothing it with a left aligned rolling mean, and
+rounding to 1 digit. The first point where the bird is not changing the
+distance to the colony is the end of the outbound leg, while the last point
+where the birds is not getting close to the colony is the inbound leg.
 }
 \author{
 Abram B. Fleishman \email{abram@conservationmetrics.com}

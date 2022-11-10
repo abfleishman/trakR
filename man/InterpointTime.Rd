@@ -11,10 +11,12 @@ InterpointTime(tracks, ID = "File", DateTime = "DateTime")
 
 \item{ID}{quoted name of column in data that is and ID field}
 
-\item{DateTime}{quoted name of column in data that has DateTime values in the format YYYY-mm-dd HH:MM:SS}
+\item{DateTime}{quoted name of column in data that has DateTime values in the
+format YYYY-mm-dd HH:MM:SS}
 }
 \value{
-A vector of times differnces in seconds between adjacent points in an animal track
+A vector of times differences in seconds between adjacent points in
+  an animal track
 }
 \description{
 Vector of times between points

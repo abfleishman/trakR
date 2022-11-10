@@ -36,7 +36,6 @@ InterpointDist<-function(tracks,
 #' @param lat vector of latitudes
 #' @param lon vector of longitudes
 #'
-#' @return
 #' @export
 #'
 distanceTrack <- function(lat, lon){
@@ -58,7 +57,6 @@ distanceTrack <- function(lat, lon){
 #' @param lat2 longtitude of first point
 #' @param lon2 lonitude of second point
 #'
-#' @return
 #' @export
 #'
 distance <-  function(lat1, lat2, lon1, lon2){
@@ -76,7 +74,6 @@ distance <-  function(lat1, lat2, lon1, lon2){
 #'
 #' @param degree degrees
 #'
-#' @return
 #' @export
 #'
 radian <-  function(degree){

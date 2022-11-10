@@ -17,7 +17,12 @@ Dist2Colony<-function(tracks,dataLat="lat",
                       ColonyLat,
                       ColonyLong){
 
-  Point2Colony<-vector(mode = "numeric",length = nrow(tracks))
+
+  if(any(is.na(c(tracks[[dataLat]],tracks[[dataLon]])))){
+    stop("There are NAs in either your ", dataLon," or ",dataLat," columns.  You must remove NAs before running Dist2Colony")
+  }
+
+    Point2Colony<-vector(mode = "numeric",length = nrow(tracks))
 
   for(i in 1:nrow(tracks)){
     # This is a function to calculate distance between two points from the

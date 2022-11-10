@@ -11,12 +11,7 @@ distance(lat1, lat2, lon1, lon2)
 
 \item{lat2}{longtitude of first point}
 
-\item{lon1}{latitude of second point}
-
 \item{lon2}{lonitude of second point}
-}
-\value{
-
 }
 \description{
 Distance (from argosfilter)

@@ -15,16 +15,16 @@ gilmour_fidelity(
 )
 }
 \arguments{
-\item{dat}{a data frame of tracking data with columns that include possitions
+\item{dat}{a data frame of tracking data with columns that include positions
 (longitude/Latitude, Easting/Northing,etc), an animal ID, unique trip IDs
-(unique to each animal/trip combo), a column wiht a distance to the colony,
+(unique to each animal/trip combo), a column with a distance to the colony,
 and a column with a bearing from each point to the colony.}
 
 \item{Longitude}{quoted column name for location in the x direction.  can be
-longitude or easting or any other x coordiant}
+longitude or easting or any other x coordinator}
 
 \item{Latitude}{quoted column name for location in the y direction.  can be
-latitude or northing or any other y coordiant}
+latitude or northing or any other y coordinator}
 
 \item{animal_id}{quoted column name of a unique ID field for each animal}
 
